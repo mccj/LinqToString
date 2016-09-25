@@ -379,7 +379,7 @@ namespace System.Linq.Dynamic
                         var new_ = expression as NewExpression;
                         if (predefinedTypes.Any(f => f == new_.Type))
                             return new_.Type.Name + "(" + string.Join(",", new_.Arguments.Select(f => GetExpressionValue(f))) + ")";
-                        if (new_.Type.GetCustomAttributes<System.Runtime.CompilerServices.CompilerGeneratedAttribute>().Any())
+                        if (new_.Type.GetCustomAttributes(true).Any(f=>f is System.Runtime.CompilerServices.CompilerGeneratedAttribute))
                         {
                             var constructList = new List<string>();
                             var arguments = new_.Arguments.Select(f => GetExpressionValue(f)).ToArray();
