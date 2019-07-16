@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Linq;
-using System.Linq;
+﻿//using System.Data.Linq;
 using System.Linq.Expressions;
-using System.Xml.Linq;
-using System.Reflection;
 
 namespace System.Linq.Dynamic
 {
-    public class ExpressionToDynamicLinq : ExpressionToDynamicLinqBase
+    internal class ExpressionStringToDynamicLinq : ExpressionToDynamicLinqBase
     {
         private Expression _expression;
-        public ExpressionToDynamicLinq(Expression expression)
+        public ExpressionStringToDynamicLinq(Expression expression)
         {
             this._expression = expression;
         }
@@ -37,7 +32,7 @@ namespace System.Linq.Dynamic
                 {
                     return LambdaExpressionInvoke(call);
                 }
-                else if (call.Arguments.Count>0&&IsParameterExpression(call.Arguments[0]) == true)
+                else if (call.Arguments.Count > 0 && IsParameterExpression(call.Arguments[0]) == true)
                 {
                     if (call.Arguments.Count == 1)
                     {

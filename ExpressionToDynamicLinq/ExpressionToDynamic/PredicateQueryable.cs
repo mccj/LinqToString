@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace System.Linq.Dynamic
+﻿namespace System.Linq.Dynamic
 {
     [Serializable]
     public class PredicateQueryable

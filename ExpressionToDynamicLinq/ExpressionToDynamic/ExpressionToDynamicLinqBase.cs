@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Linq;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Xml.Linq;
-using System.Reflection;
 
 namespace System.Linq.Dynamic
 {
-    public abstract class ExpressionToDynamicLinqBase
+    internal abstract class ExpressionToDynamicLinqBase
     {
-        protected static readonly Type[] predefinedTypes = {
+        protected static readonly Type[] predefinedTypes = getPredefinedTypes();
+
+        private static Type[] getPredefinedTypes()
+        {
+            var _predefinedTypes = new List<Type> {
             typeof(Object),
             typeof(Boolean),
             typeof(Char),
             typeof(String),
             typeof(SByte),
             typeof(Byte),
-            typeof(Int16),
-            typeof(UInt16),
-            typeof(Int32),
-            typeof(UInt32),
-            typeof(Int64),
-            typeof(UInt64),
-            typeof(Single),
+            typeof(short),
+            typeof(ushort),
+            typeof(int),
+            typeof(uint),
+            typeof(long),
+            typeof(ulong),
+            typeof(float),
             typeof(Double),
             typeof(Decimal),
             typeof(DateTime),
@@ -32,9 +31,45 @@ namespace System.Linq.Dynamic
             typeof(Guid),
             typeof(Math),
             typeof(Convert),
-            typeof(System.Data.Objects.EntityFunctions)
+            typeof(Uri),
+            //typeof(System.Data.Objects.EntityFunctions)
         };
 
+            var TryAdd = new Action<string>(typeName =>
+            {
+                try
+                {
+                    Type efType = Type.GetType(typeName);
+                    if (efType != null)
+                    {
+                        _predefinedTypes.Add(efType);
+                    }
+                }
+                catch
+                {
+                    // in case of exception, do not add
+                }
+            });
+
+#if !(NET35 || SILVERLIGHT || NETFX_CORE || WINDOWS_APP || DOTNET5_1 || UAP10_0 || NETSTANDARD)
+            //System.Data.Entity is always here, so overwrite short name of it with EntityFramework if EntityFramework is found.
+            //EF5(or 4.x??), System.Data.Objects.DataClasses.EdmFunctionAttribute
+            //There is also an System.Data.Entity, Version=3.5.0.0, but no Functions.
+            TryAdd("System.Data.Objects.EntityFunctions, System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+            TryAdd("System.Data.Objects.SqlClient.SqlFunctions, System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+            TryAdd("System.Data.Objects.SqlClient.SqlSpatialFunctions, System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+            //EF6,System.Data.Entity.DbFunctionAttribute
+            TryAdd("System.Data.Entity.Core.Objects.EntityFunctions, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+            TryAdd("System.Data.Entity.DbFunctions, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+            TryAdd("System.Data.Entity.Spatial.DbGeography, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+            TryAdd("System.Data.Entity.SqlServer.SqlFunctions, EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+            TryAdd("System.Data.Entity.SqlServer.SqlSpatialFunctions, EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+#endif
+#if NETSTANDARD2_0
+            TryAdd("Microsoft.EntityFrameworkCore.DynamicLinq.DynamicFunctions, Microsoft.EntityFrameworkCore.DynamicLinq, Version=1.0.0.0, Culture=neutral, PublicKeyToken=974e7e1b462f3693");
+#endif
+            return _predefinedTypes.ToArray();
+        }
 
         protected List<Parameter> _parameter = new List<Parameter>();
         protected ParameterExpression it = null;
@@ -379,7 +414,7 @@ namespace System.Linq.Dynamic
                         var new_ = expression as NewExpression;
                         if (predefinedTypes.Any(f => f == new_.Type))
                             return new_.Type.Name + "(" + string.Join(",", new_.Arguments.Select(f => GetExpressionValue(f))) + ")";
-                        if (new_.Type.GetCustomAttributes(true).Any(f=>f is System.Runtime.CompilerServices.CompilerGeneratedAttribute))
+                        if (new_.Type.GetCustomAttributes(true).Any(f => f is System.Runtime.CompilerServices.CompilerGeneratedAttribute))
                         {
                             var constructList = new List<string>();
                             var arguments = new_.Arguments.Select(f => GetExpressionValue(f)).ToArray();
@@ -531,14 +566,14 @@ namespace System.Linq.Dynamic
             var value = expr.Compile().DynamicInvoke();
             return value;
         }
-        
+
         protected string LambdaExpressionInvoke(Expression body)
         {
             var value = ssss(body);
             return ConstantToValue(value);
         }
 
-        protected  virtual string ConstantToValue(object value)
+        protected virtual string ConstantToValue(object value)
         {
             if (value == null)
                 return "null";

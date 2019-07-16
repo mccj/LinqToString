@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Linq;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Xml.Linq;
-using System.Reflection;
+﻿using System.Linq.Expressions;
 
 namespace System.Linq.Dynamic
 {
-    public class ExpressionToDynamicLinq2 : ExpressionToDynamicLinqBase
+    internal class ExpressionPredicateToDynamicLinq : ExpressionToDynamicLinqBase
     {
         private Expression _expression;
-        public ExpressionToDynamicLinq2(Expression expression)
+        public ExpressionPredicateToDynamicLinq(Expression expression)
         {
             this._expression = expression;
         }
