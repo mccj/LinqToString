@@ -2,11 +2,13 @@
   <PropertyGroup>
     <RootNamespace>System.Linq.Dynamic</RootNamespace>
     <TargetFrameworks>netstandard2.0;net45;net40</TargetFrameworks>
+    <Version>1.0.2</Version>
+    <!--<AssemblyName>LinqToString</AssemblyName>-->
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" Condition="'$(TargetFramework)' == 'net40'" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.5.0"  Condition="'$(TargetFramework)' != 'net40'"/>
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18"  Condition="'$(TargetFramework)' == 'netstandard2.0'"/>
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" Condition="'$(TargetFramework)' != 'net40'" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
     <PackageReference Include="System.Linq.Dynamic" Version="1.0.7" Condition="'$(TargetFramework)' == 'net40' Or '$(TargetFramework)' == 'net45'" />
   </ItemGroup>
 
