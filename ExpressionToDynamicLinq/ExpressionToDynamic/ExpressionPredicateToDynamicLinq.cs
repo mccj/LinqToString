@@ -18,23 +18,26 @@ namespace System.Linq.Dynamic
                 Parameters = _parameter.ToArray()
             };
         }
-        protected override string GetExpressionParameterValue(ParameterExpression parameter)
-        {
-            return parameter == it ? "it" : "outerIt";
-        }
+        //protected override string GetExpressionParameterValue(ParameterExpression parameter)
+        //{
+        //    return parameter == it ? "(it)" : "(outerIt)";
+        //}
         protected override string GetExpressionCallValue(MethodCallExpression call)
         {
             if (predefinedTypes.Contains(call.Method.ReflectedType))
             {
                 var arguments = call.Arguments.Select(f => GetExpressionValue(f)).ToArray();
-                return string.Format("{0}.{1}({2})", call.Method.ReflectedType.Name, call.Method.Name, string.Join(",", arguments));
+                if (call.Object != null)
+                    return string.Format("{0}.{1}({2})", GetExpressionValue(call.Object), call.Method.Name, string.Join(",", arguments));
+                else
+                    return string.Format("{0}.{1}({2})", call.Method.ReflectedType.Name, call.Method.Name, string.Join(",", arguments));
             }
             else
             {
                 var isParameter = IsParameterExpression(call);
                 if (isParameter == false)
                 {
-                    return LambdaExpressionInvoke(call);
+                    return LambdaExpressionInvokeValue(call);
                 }
                 else
                 {

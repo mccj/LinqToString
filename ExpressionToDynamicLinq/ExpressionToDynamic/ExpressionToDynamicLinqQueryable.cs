@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Dynamic;
 using System.Linq.Expressions;
 
-namespace System.Linq
+namespace System.Linq.Dynamic
 {
     public static class ExpressionToDynamicLinqQueryable
     {
@@ -36,14 +35,13 @@ namespace System.Linq
         }
         public static IQueryable Select(this IQueryable source, PredicateQueryable selector)
         {
+            var _params = selector.Parameters.Select(f => f.Value).ToArray();
 #if !(NET35 || SILVERLIGHT || NETFX_CORE || WINDOWS_APP || DOTNET5_1 || UAP10_0 || NETSTANDARD)
-               return source.Select(selector.Predicate, selector.Parameters);
+            return source.Select(selector.Predicate, _params);
 #endif
 #if NETSTANDARD2_0
-            var _params = selector.Parameters.Select(f => f.Value).ToArray();
             return System.Linq.Dynamic.Core.DynamicQueryableExtensions.Select(source, selector.Predicate, _params);
 #endif
         }
-
     }
 }

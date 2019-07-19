@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ExpressionToDynamicLinqUnitTest.ExpressionString
 {
-    public enum StateEnum { State1, State2, State3 }
+    public enum StateEnum { State1=0, State2=1, State3=2 }
     public abstract class ModelBase
     {
         public string Name { get; set; }

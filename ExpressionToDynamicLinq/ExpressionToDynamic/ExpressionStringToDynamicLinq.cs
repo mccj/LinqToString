@@ -1,5 +1,4 @@
-﻿//using System.Data.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace System.Linq.Dynamic
 {
@@ -14,23 +13,27 @@ namespace System.Linq.Dynamic
         {
             return GetExpressionValue(_expression);
         }
-        protected override string GetExpressionParameterValue(ParameterExpression parameter)
-        {
-            return string.Empty;
-        }
+        //protected override string GetExpressionParameterValue(ParameterExpression parameter)
+        //{
+        //    //return string.Empty;
+        //    return parameter == it ? "(it)" : "(outerIt)";
+        //}
         protected override string GetExpressionCallValue(MethodCallExpression call)
         {
             if (predefinedTypes.Contains(call.Method.ReflectedType))
             {
                 var arguments = call.Arguments.Select(f => GetExpressionValue(f)).ToArray();
-                return string.Format("{0}.{1}({2})", call.Method.ReflectedType.Name, call.Method.Name, string.Join(",", arguments));
+                if (call.Object != null)
+                    return string.Format("{0}.{1}({2})", GetExpressionValue(call.Object), call.Method.Name, string.Join(",", arguments));
+                else
+                    return string.Format("{0}.{1}({2})", call.Method.ReflectedType.Name, call.Method.Name, string.Join(",", arguments));
             }
             else
             {
                 var isParameter = IsParameterExpression(call);
                 if (isParameter == false)
                 {
-                    return LambdaExpressionInvoke(call);
+                    return LambdaExpressionInvokeValue(call);
                 }
                 else if (call.Arguments.Count > 0 && IsParameterExpression(call.Arguments[0]) == true)
                 {
@@ -82,10 +85,52 @@ namespace System.Linq.Dynamic
                     }
                     else if (call.Arguments.Count == 2)
                     {
-                        var a0 = ssss(call.Arguments[0]);
-                        var a1 = GetExpressionValue(call.Arguments[1]);
-                        var s111 = (a0 as Collections.IEnumerable).OfType<object>().Select(f => a1 + " = " + ConstantToValue(f)).ToArray();
-                        return "(" + string.Join(" || ", s111) + ")";
+                        switch (call.Method.Name)
+                        {
+                            case nameof(Enumerable.Contains):
+                                {
+                                    //((it).Name == \"a1\" || (it).Name == \"a2\" || (it).Name == \"a3\")
+                                    var a0 = LambdaExpressionInvoke(call.Arguments[0]);
+                                    var a1 = GetExpressionValue(call.Arguments[1]);
+                                    var s111 = (a0 as Collections.IEnumerable).OfType<object>().Select(f => a1 + " == " + ConstantToValue(f)).ToArray();
+                                    return "(" + string.Join(" || ", s111) + ")";
+                                }
+                            case nameof(Enumerable.Any):
+                                {
+                                    ////(((it).Name == "a1") || ((it).Name == "a2") || ((it).Name == "a3"))
+                                    var a0 = LambdaExpressionInvoke(call.Arguments[0]);
+                                    var a1 = GetExpressionValue(call.Arguments[1]);
+                                    var s111 = (a0 as Collections.IEnumerable).OfType<object>().Select(f =>
+                                    {
+                                        return Text.RegularExpressions.Regex.Replace(a1, "\\(it\\)", evaluator => ConstantToValue(f)).Replace("(outerIt)", "(it)");
+                                    }
+                                    ).ToArray();
+                                    return "(" + string.Join(" || ", s111) + ")";
+                                }
+                            case nameof(Enumerable.All):
+                                {
+
+                                }
+                                break;
+                            case nameof(Enumerable.Count):
+                                {
+
+                                }
+                                break;
+                            case nameof(Enumerable.Min):
+                                {
+
+                                }
+                                break;
+                            case nameof(Enumerable.Sum):
+                                {
+
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        throw new Exception("GetExpressionCallValue");
                     }
                     else
                     {

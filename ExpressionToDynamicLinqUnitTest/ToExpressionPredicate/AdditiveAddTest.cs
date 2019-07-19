@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-//using System.Linq.Dynamic;
+using System.Linq.Dynamic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq.Expressions;
 
@@ -21,10 +21,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.Name + f.B5.Name == "");
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "((\"a1\" + it.Name) == \"\")");
-            Assert.AreEqual(s2.Predicate, "((\"a1\" + it.Name) == \"\")");
-            Assert.AreEqual(s3.Predicate, "((\"a1\" + it.B5.Name) == \"\")");
-            Assert.AreEqual(s4.Predicate, "((it.Name + it.B5.Name) == \"\")");
+            Assert.AreEqual(s1.Predicate, "((\"a1\" + (it).Name) == \"\")");
+            Assert.AreEqual(s2.Predicate, "((\"a1\" + (it).Name) == \"\")");
+            Assert.AreEqual(s3.Predicate, "((\"a1\" + (it).B5.Name) == \"\")");
+            Assert.AreEqual(s4.Predicate, "(((it).Name + (it).B5.Name) == \"\")");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -44,10 +44,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.Age + f.B5.Age == 5);
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "((1 + it.Age) == 5)");
-            Assert.AreEqual(s2.Predicate, "((1 + it.Age) == 5)");
-            Assert.AreEqual(s3.Predicate, "((1 + it.B5.Age) == 5)");
-            Assert.AreEqual(s4.Predicate, "((it.Age + it.B5.Age) == 5)");
+            Assert.AreEqual(s1.Predicate, "((1 + (it).Age) == 5)");
+            Assert.AreEqual(s2.Predicate, "((1 + (it).Age) == 5)");
+            Assert.AreEqual(s3.Predicate, "((1 + (it).B5.Age) == 5)");
+            Assert.AreEqual(s4.Predicate, "(((it).Age + (it).B5.Age) == 5)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -67,10 +67,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.B1 + f.B5.B1 == 5M);
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "((1.11 + it.B1) == 5)");
-            Assert.AreEqual(s2.Predicate, "((1.11 + it.B1) == 5)");
-            Assert.AreEqual(s3.Predicate, "((1.11 + it.B5.B1) == 5)");
-            Assert.AreEqual(s4.Predicate, "((it.B1 + it.B5.B1) == 5)");
+            Assert.AreEqual(s1.Predicate, "((1.11 + (it).B1) == 5)");
+            Assert.AreEqual(s2.Predicate, "((1.11 + (it).B1) == 5)");
+            Assert.AreEqual(s3.Predicate, "((1.11 + (it).B5.B1) == 5)");
+            Assert.AreEqual(s4.Predicate, "(((it).B1 + (it).B5.B1) == 5)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -95,11 +95,11 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.B2 + new TimeSpan(1, 0, 0) <= f.B5.B2);
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "((DateTime(634609728000000000) + TimeSpan(36000000000)) <= it.B2)");
-            Assert.AreEqual(s2.Predicate, "((DateTime(2012,1,1) + TimeSpan(1,0,0)) <= it.B2)");
+            Assert.AreEqual(s1.Predicate, "((DateTime(634609728000000000) + TimeSpan(36000000000)) <= (it).B2)");
+            Assert.AreEqual(s2.Predicate, "((DateTime(2012,1,1) + TimeSpan(1,0,0)) <= (it).B2)");
             //Assert.AreEqual(s2_1.Predicate, "(1.11 >= B2)");
-            Assert.AreEqual(s3.Predicate, "((DateTime(2012,1,1) + TimeSpan(1,0,0)) <= it.B5.B2)");
-            Assert.AreEqual(s4.Predicate, "((it.B2 + TimeSpan(1,0,0)) <= it.B5.B2)");
+            Assert.AreEqual(s3.Predicate, "((DateTime(2012,1,1) + TimeSpan(1,0,0)) <= (it).B5.B2)");
+            Assert.AreEqual(s4.Predicate, "(((it).B2 + TimeSpan(1,0,0)) <= (it).B5.B2)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();

@@ -10,7 +10,7 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionString
     public class PrimaryNewTest
     {
         [TestMethod]
-        public void PrimaryNewTestString()
+        public void PrimaryNewString()
         {
             var arrStr = new[] { "a1", "a2", "a3" };
             Expression<Func<Model1, bool>> expression1 = f => (arrStr[0] == new { aaa = "sss" }.aaa);
@@ -21,8 +21,8 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionString
             var s3 = expression3.ToExpressionString();
 
             Assert.AreEqual(s1, "(\"a1\" == \"sss\")");
-            Assert.AreEqual(s2, "(\"a1\" == new(Name as aaa).aaa)");
-            Assert.AreEqual(s3, "(\"a1\" == new(Name as aaa).aaa)");
+            Assert.AreEqual(s2, "(\"a1\" == new((it).Name as aaa).aaa)");
+            Assert.AreEqual(s3, "(\"a1\" == new((it).Name as aaa).aaa)");
         }
     }
 }

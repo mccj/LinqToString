@@ -10,29 +10,29 @@ namespace System.Linq.Dynamic
         private static Type[] getPredefinedTypes()
         {
             var _predefinedTypes = new List<Type> {
-            typeof(Object),
-            typeof(Boolean),
-            typeof(Char),
-            typeof(String),
-            typeof(SByte),
-            typeof(Byte),
-            typeof(short),
-            typeof(ushort),
-            typeof(int),
-            typeof(uint),
-            typeof(long),
-            typeof(ulong),
-            typeof(float),
-            typeof(Double),
-            typeof(Decimal),
-            typeof(DateTime),
-            typeof(DateTimeOffset),
-            typeof(TimeSpan),
-            typeof(Guid),
-            typeof(Math),
-            typeof(Convert),
-            typeof(Uri),
-            //typeof(System.Data.Objects.EntityFunctions)
+                typeof(Object),
+                typeof(Boolean),
+                typeof(Char),
+                typeof(String),
+                typeof(SByte),
+                typeof(Byte),
+                typeof(Int16),
+                typeof(UInt16),
+                typeof(Int32),
+                typeof(UInt32),
+                typeof(Int64),
+                typeof(UInt64),
+                typeof(Single),
+                typeof(Double),
+                typeof(Decimal),
+                typeof(DateTime),
+                typeof(DateTimeOffset),
+                typeof(TimeSpan),
+                typeof(Guid),
+                typeof(Math),
+                typeof(Convert),
+                typeof(Uri),
+                //typeof(System.Data.Objects.EntityFunctions)
         };
 
             var TryAdd = new Action<string>(typeName =>
@@ -240,87 +240,115 @@ namespace System.Linq.Dynamic
                 case ExpressionType.Equal:
                     {
                         var equal = expression as BinaryExpression;
-                        return string.Format("({0} == {1})", GetExpressionValue(equal.Left), GetExpressionValue(equal.Right));
+                        return GetBinaryExpressionEnumValue("({0} == {1})", equal);
+                        //return string.Format("({0} == {1})", GetExpressionValue(equal.Left), GetExpressionValue( equal.Right));
                     }
                 case ExpressionType.NotEqual:
                     {
                         var notEqual = expression as BinaryExpression;
-                        return string.Format("({0} != {1})", GetExpressionValue(notEqual.Left), GetExpressionValue(notEqual.Right));
+                        return GetBinaryExpressionEnumValue("({0} != {1})", notEqual);
+                        //return string.Format("({0} != {1})", GetExpressionValue(notEqual.Left), GetExpressionValue(notEqual.Right));
                     }
                 case ExpressionType.GreaterThan:
                     {
                         var greaterThan = expression as BinaryExpression;
-                        return string.Format("({0} > {1})", GetExpressionValue(greaterThan.Left), GetExpressionValue(greaterThan.Right));
+                        return GetBinaryExpressionEnumValue(greaterThan, "({0} > {1})", "({0} <= {1})");
+                        //return string.Format("({0} > {1})", GetExpressionValue(greaterThan.Left), GetExpressionValue(greaterThan.Right));
                     }
                 case ExpressionType.LessThan:
                     {
                         var lessThan = expression as BinaryExpression;
-                        return string.Format("({0} < {1})", GetExpressionValue(lessThan.Left), GetExpressionValue(lessThan.Right));
+                        return GetBinaryExpressionEnumValue(lessThan, "({0} < {1})", "({0} >= {1})");
+                        //return string.Format("({0} < {1})", GetExpressionValue(lessThan.Left), GetExpressionValue(lessThan.Right));
                     }
                 case ExpressionType.GreaterThanOrEqual:
                     {
                         var greaterThan = expression as BinaryExpression;
-                        return string.Format("({0} >= {1})", GetExpressionValue(greaterThan.Left), GetExpressionValue(greaterThan.Right));
+                        return GetBinaryExpressionEnumValue(greaterThan, "({0} >= {1})", "({0} < {1})");
+                        //return string.Format("({0} >= {1})", GetExpressionValue(greaterThan.Left), GetExpressionValue(greaterThan.Right));
                     }
                 case ExpressionType.LessThanOrEqual:
                     {
                         var lessThanOrEqual = expression as BinaryExpression;
-                        return string.Format("({0} <= {1})", GetExpressionValue(lessThanOrEqual.Left), GetExpressionValue(lessThanOrEqual.Right));
+                        return GetBinaryExpressionEnumValue(lessThanOrEqual, "({0} <= {1})", "({0} > {1})");
+                        //return string.Format("({0} <= {1})", GetExpressionValue(lessThanOrEqual.Left), GetExpressionValue(lessThanOrEqual.Right));
                     }
                 case ExpressionType.Or:
                     {
                         var or = expression as BinaryExpression;
-                        return string.Format("({0} | {1})", GetExpressionValue(or.Left), GetExpressionValue(or.Right));
+                        return GetBinaryExpressionEnumValue("({0} | {1})", or);
+                        //return string.Format("({0} | {1})", GetExpressionValue(or.Left), GetExpressionValue(or.Right));
                     }
                 case ExpressionType.OrElse:
                     {
                         var orElse = expression as BinaryExpression;
-                        return string.Format("({0} || {1})", GetExpressionValue(orElse.Left), GetExpressionValue(orElse.Right));
+                        return GetBinaryExpressionEnumValue("({0} || {1})", orElse);
+                        //return string.Format("({0} || {1})", GetExpressionValue(orElse.Left), GetExpressionValue(orElse.Right));
                     }
                 case ExpressionType.And:
                     {
                         var and = expression as BinaryExpression;
-                        return string.Format("({0} & {1})", GetExpressionValue(and.Left), GetExpressionValue(and.Right));
+                        return GetBinaryExpressionEnumValue("({0} & {1})", and);
+                        //return string.Format("({0} & {1})", GetExpressionValue(and.Left), GetExpressionValue(and.Right));
                     }
                 case ExpressionType.AndAlso:
                     {
                         var andAlso = expression as BinaryExpression;
-                        return string.Format("({0} && {1})", GetExpressionValue(andAlso.Left), GetExpressionValue(andAlso.Right));
-                    }
-                case ExpressionType.Conditional:
-                    {
-                        var conditional = expression as ConditionalExpression;
-                        var conditional1 = GetExpressionValue(conditional.Test);
-                        var conditional2 = GetExpressionValue(conditional.IfTrue);
-                        var conditional3 = GetExpressionValue(conditional.IfFalse);
-                        //return string.Format("iif({0},{1},{2})", conditional1, conditional2, conditional3);
-                        return string.Format("({0} ? {1} : {2})", conditional1, conditional2, conditional3);
+                        return GetBinaryExpressionEnumValue("({0} && {1})", andAlso);
+                        //return string.Format("({0} && {1})", GetExpressionValue(andAlso.Left), GetExpressionValue(andAlso.Right));
                     }
                 case ExpressionType.Subtract:
                     {
                         var subtract = expression as BinaryExpression;
-                        return string.Format("({0} - {1})", GetExpressionValue(subtract.Left), GetExpressionValue(subtract.Right));
+                        return GetBinaryExpressionEnumValue("({0} - {1})", subtract);
+                        //return string.Format("({0} - {1})", GetExpressionValue(subtract.Left), GetExpressionValue(subtract.Right));
                     }
                 case ExpressionType.Add:
                     {
                         var add = expression as BinaryExpression;
-                        return string.Format("({0} + {1})", GetExpressionValue(add.Left), GetExpressionValue(add.Right));
+                        return GetBinaryExpressionEnumValue("({0} + {1})", add);
+                        //return string.Format("({0} + {1})", GetExpressionValue(add.Left), GetExpressionValue(add.Right));
                     }
                 case ExpressionType.Modulo:
                     {
                         var modulo = expression as BinaryExpression;
-                        return string.Format("({0} % {1})", GetExpressionValue(modulo.Left), GetExpressionValue(modulo.Right));
+                        return GetBinaryExpressionEnumValue("({0} % {1})", modulo);
+                        //return string.Format("({0} % {1})", GetExpressionValue(modulo.Left), GetExpressionValue(modulo.Right));
                     }
                 case ExpressionType.Divide:
                     {
                         var divide = expression as BinaryExpression;
-                        return string.Format("({0} / {1})", GetExpressionValue(divide.Left), GetExpressionValue(divide.Right));
+                        return GetBinaryExpressionEnumValue("({0} / {1})", divide);
+                        //return string.Format("({0} / {1})", GetExpressionValue(divide.Left), GetExpressionValue(divide.Right));
                     }
                 case ExpressionType.Multiply:
                     {
                         var multiply = expression as BinaryExpression;
-                        return string.Format("({0} * {1})", GetExpressionValue(multiply.Left), GetExpressionValue(multiply.Right));
+                        return GetBinaryExpressionEnumValue("({0} * {1})", multiply);
+                        //return string.Format("({0} * {1})", GetExpressionValue(multiply.Left), GetExpressionValue(multiply.Right));
                     }
+                case ExpressionType.Conditional:
+                    {
+                        var conditional = expression as ConditionalExpression;
+
+                        var isParameter = IsParameterExpression(conditional.Test);
+                        if (isParameter)
+                        {
+                            var conditional1 = GetExpressionValue(conditional.Test);
+                            var conditional2 = GetExpressionValue(conditional.IfTrue);
+                            var conditional3 = GetExpressionValue(conditional.IfFalse);
+
+                            //return string.Format("iif({0},{1},{2})", conditional1, conditional2, conditional3);
+                            return string.Format("({0} ? {1} : {2})", conditional1, conditional2, conditional3);
+                        }
+                        else
+                        {
+                            var newExpr = Expression.Lambda(conditional.Test, null);//创建一个Lambda表达式
+                            var value = (bool)newExpr.Compile().DynamicInvoke();
+                            return GetExpressionValue(value ? conditional.IfTrue : conditional.IfFalse);
+                        }
+                    }
+
                 case ExpressionType.Not:
                     {
                         var not = expression as UnaryExpression;
@@ -337,7 +365,7 @@ namespace System.Linq.Dynamic
                         var isParameter = IsParameterExpression(arrayIndex);
                         if (isParameter == false)
                         {
-                            return LambdaExpressionInvoke(arrayIndex);
+                            return LambdaExpressionInvokeValue(arrayIndex);
                         }
                         else
                         {
@@ -350,7 +378,7 @@ namespace System.Linq.Dynamic
                         var isParameter = IsParameterExpression(newArrayInit);
                         if (isParameter == false)
                         {
-                            return LambdaExpressionInvoke(newArrayInit);
+                            return LambdaExpressionInvokeValue(newArrayInit);
                         }
                         else
                         {
@@ -376,7 +404,7 @@ namespace System.Linq.Dynamic
                         var isParameter = IsParameterExpression(memberAccess);
                         if (isParameter == false)
                         {
-                            return LambdaExpressionInvoke(memberAccess);
+                            return LambdaExpressionInvokeValue(memberAccess);
                         }
                         else
                         {
@@ -390,13 +418,13 @@ namespace System.Linq.Dynamic
                         var isParameter = IsParameterExpression(convert);
                         if (isParameter == false)
                         {
-                            //if (convert.Operand.Type.IsEnum)
-                            //{
-                            //    return LambdaExpressionInvoke(convert.Operand);
-                            //}
-                            //else
+                            if (convert.Operand.Type.IsEnum)
                             {
-                                return LambdaExpressionInvoke(convert);
+                                return LambdaExpressionInvokeValue(convert.Operand);
+                            }
+                            else
+                            {
+                                return LambdaExpressionInvokeValue(convert);
                             }
                         }
                         else
@@ -431,10 +459,14 @@ namespace System.Linq.Dynamic
                             return ConstantToValue(value);
                         }
                     }
+                case ExpressionType.ArrayLength:
+                    {
+                        var arrayLength = expression as UnaryExpression;
+                        break;
+                    }
                 case ExpressionType.AddChecked:
                     break;
-                case ExpressionType.ArrayLength:
-                    break;
+
                 case ExpressionType.Coalesce:
                     break;
                 case ExpressionType.ConvertChecked:
@@ -554,22 +586,118 @@ namespace System.Linq.Dynamic
         }
         protected virtual string GetExpressionParameterValue(ParameterExpression parameter)
         {
-            throw new Exception("GetExpressionParameterValue");
+            return parameter == it ? "(it)" : "(outerIt)";
         }
         protected virtual string GetExpressionCallValue(MethodCallExpression call)
         {
             throw new Exception("GetExpressionCallValue");
         }
-        protected object ssss(Expression body)
+        protected string GetBinaryExpressionEnumValue(BinaryExpression expression, string format, string reversalFormat = null)
+        {
+            var leftParameterExpression = IsParameterExpression(expression.Left);
+            var rightParameterExpression = IsParameterExpression(expression.Right);
+            if (leftParameterExpression != rightParameterExpression)
+            {
+                var unaryExpression = (leftParameterExpression ? expression.Left : expression.Right) as UnaryExpression;
+                //枚举
+                if (unaryExpression?.Operand?.Type?.IsEnum == true && leftParameterExpression)
+                {//Parameter值在左边，需要反转，并转换参数
+                    return string.Format(reversalFormat ?? format, GetExpressionValue(expression.Right), GetExpressionValue(expression.Left));
+                }
+                else if (unaryExpression?.Operand?.Type?.IsEnum == true && rightParameterExpression)
+                {//Parameter值在右边，不需要反转，并转换参数
+                    var leftExpressionValue = LambdaExpressionInvokeValue(expression.Left);
+                    return string.Format(format, leftExpressionValue, GetExpressionValue(expression.Right));
+                }
+            }
+            //else if (leftParameterExpression == rightParameterExpression == true)
+            //{
+            //    //时间 DateTimeOffset
+            //    var leftExpression = expression.Left as UnaryExpression;
+            //    var rightExpression = expression.Right as UnaryExpression;
+            //    if (leftExpression?.Type == typeof(System.DateTimeOffset) && leftExpression?.Operand?.Type == typeof(System.DateTime))
+            //    {
+            //        return string.Format(format, GetExpressionValue(expression.Left), GetExpressionValue(expression.Right));
+            //    }
+            //    else if (rightExpression?.Type == typeof(System.DateTimeOffset) && rightExpression?.Operand?.Type == typeof(System.DateTime))
+            //    {
+            //        return string.Format(reversalFormat ?? format, GetExpressionValue(expression.Right), GetExpressionValue(expression.Left));
+            //    }
+            //}
+            {//其他
+                //return string.Format(format, GetExpressionValue(expression.Left), GetExpressionValue(expression.Right));
+                return GetBinaryExpressionEnumValue(format, expression);
+            }
+        }
+        protected string GetBinaryExpressionEnumValue(string format, BinaryExpression expression)
+        {
+            var leftParameterExpression = IsParameterExpression(expression.Left);
+            var rightParameterExpression = IsParameterExpression(expression.Right);
+            var unaryExpression = (leftParameterExpression ? expression.Left : expression.Right) as UnaryExpression;
+            //枚举
+            if (leftParameterExpression != rightParameterExpression && unaryExpression?.Operand?.Type?.IsEnum == true && leftParameterExpression)
+            {
+                var _enumValue = LambdaExpressionInvokeEnumValue(expression.Right, unaryExpression.Operand.Type);
+                return string.Format(format, GetExpressionValue(expression.Left), _enumValue);
+            }
+            else if (leftParameterExpression != rightParameterExpression && unaryExpression?.Operand?.Type?.IsEnum == true && rightParameterExpression)
+            {
+                var _enumValue = LambdaExpressionInvokeEnumValue(expression.Left, unaryExpression.Operand.Type);
+                return string.Format(format, _enumValue, GetExpressionValue(expression.Right));
+            }
+            //时间 DateTimeOffset
+            if (leftParameterExpression != rightParameterExpression && unaryExpression?.Type == typeof(System.DateTimeOffset) && leftParameterExpression/* && expression.Right.NodeType == ExpressionType.MemberAccess*/)
+            {
+                //if (((MemberExpression)expression.Right).Expression != null)
+                //{
+                var _enumValue = LambdaExpressionInvokeEnumValue(expression.Right, unaryExpression.Operand.Type);
+                return string.Format(format, GetExpressionValue(expression.Left), _enumValue);
+                //}
+            }
+            else if (leftParameterExpression != rightParameterExpression && unaryExpression?.Type == typeof(System.DateTimeOffset) && rightParameterExpression/* && expression.Left.NodeType == ExpressionType.MemberAccess*/)
+            {
+                //if (((MemberExpression)expression.Left).Expression != null)
+                //{
+                var _enumValue = LambdaExpressionInvokeEnumValue(expression.Left, unaryExpression.Operand.Type);
+                return string.Format(format, _enumValue, GetExpressionValue(expression.Right));
+                //}
+            }
+            {//其他
+                return string.Format(format, GetExpressionValue(expression.Left), GetExpressionValue(expression.Right));
+            }
+        }
+
+        protected object LambdaExpressionInvoke(Expression body)
         {
             var expr = Expression.Lambda(body, null);//创建一个Lambda表达式
             var value = expr.Compile().DynamicInvoke();
             return value;
         }
-
-        protected string LambdaExpressionInvoke(Expression body)
+        protected string LambdaExpressionInvokeEnumValue(Expression body, Type type)
         {
-            var value = ssss(body);
+            var value = LambdaExpressionInvoke(body);
+            if (type.IsEnum)
+            {
+                var enumValue = Enum.ToObject(type, value);
+                return ConstantToValue(enumValue);
+            }
+            else if (type == typeof(System.DateTimeOffset) && value is System.DateTime)
+            {
+                var dataValue = new System.DateTimeOffset((System.DateTime)value);
+                return ConstantToValue(dataValue);
+            }
+            else if (type == typeof(System.DateTime) && value is System.DateTimeOffset)
+            {
+                return ConstantToValue(((System.DateTimeOffset)value).DateTime);
+            }
+            else
+            {
+                return ConstantToValue(value);
+            }
+        }
+        protected string LambdaExpressionInvokeValue(Expression body)
+        {
+            var value = LambdaExpressionInvoke(body);
             return ConstantToValue(value);
         }
 
@@ -623,7 +751,20 @@ namespace System.Linq.Dynamic
             //            return "null";
             //        }
 
-            return Convert.ToString(value);
+            //new(\"dd\" as name)
+
+
+            var type = value.GetType();
+            if (!predefinedTypes.Any(f => f == type))
+            {
+                var props = type.GetProperties();
+                var constructList = props.Select(f => ConstantToValue(f.GetValue(value, null)) + " as " + f.Name).ToArray();
+                return string.Format("new({0})", string.Join(",", constructList));
+            }
+            else
+            {
+                return Convert.ToString(value);
+            }
         }
     }
 }

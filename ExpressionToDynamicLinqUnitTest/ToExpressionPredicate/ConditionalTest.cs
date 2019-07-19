@@ -26,10 +26,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             //Assert.AreEqual(s3, "(B5.Name == B5.Name)");
             //Assert.AreEqual(s4, "(iif((B5.Name == \"5555\"),B5.Name,B5.Name) == B5.Name)");
 
-            Assert.AreEqual(s1.Predicate, "((True ? True : True) == True)");
+            Assert.AreEqual(s1.Predicate, "(True == True)");
             Assert.AreEqual(s2.Predicate, "False");
-            Assert.AreEqual(s3.Predicate, "(it.B5.Name == it.B5.Name)");
-            Assert.AreEqual(s4.Predicate, "(((it.B5.Name == \"5555\") ? it.B5.Name : it.B5.Name) == it.B5.Name)");
+            Assert.AreEqual(s3.Predicate, "((it).B5.Name == (it).B5.Name)");
+            Assert.AreEqual(s4.Predicate, "((((it).B5.Name == \"5555\") ? (it).B5.Name : (it).B5.Name) == (it).B5.Name)");
 
 
             var models = new Model1[] { };

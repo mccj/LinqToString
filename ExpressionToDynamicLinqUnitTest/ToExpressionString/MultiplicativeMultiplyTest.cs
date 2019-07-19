@@ -21,10 +21,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionString
             var s3 = expression3.ToExpressionString();
             Expression<Func<Model1, bool>> expression4 = f => (f.Age * f.B5.Age == 5);
             var s4 = expression4.ToExpressionString();
-            Assert.AreEqual(s1, "((1 * Age) == 5)");
-            Assert.AreEqual(s2, "((1 * Age) == 5)");
-            Assert.AreEqual(s3, "((1 * B5.Age) == 5)");
-            Assert.AreEqual(s4, "((Age * B5.Age) == 5)");
+            Assert.AreEqual(s1, "((1 * (it).Age) == 5)");
+            Assert.AreEqual(s2, "((1 * (it).Age) == 5)");
+            Assert.AreEqual(s3, "((1 * (it).B5.Age) == 5)");
+            Assert.AreEqual(s4, "(((it).Age * (it).B5.Age) == 5)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -44,10 +44,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionString
             var s3 = expression3.ToExpressionString();
             Expression<Func<Model1, bool>> expression4 = f => (f.B1 * f.B5.B1 == 5M);
             var s4 = expression4.ToExpressionString();
-            Assert.AreEqual(s1, "((1.11 * B1) == 5)");
-            Assert.AreEqual(s2, "((1.11 * B1) == 5)");
-            Assert.AreEqual(s3, "((1.11 * B5.B1) == 5)");
-            Assert.AreEqual(s4, "((B1 * B5.B1) == 5)");
+            Assert.AreEqual(s1, "((1.11 * (it).B1) == 5)");
+            Assert.AreEqual(s2, "((1.11 * (it).B1) == 5)");
+            Assert.AreEqual(s3, "((1.11 * (it).B5.B1) == 5)");
+            Assert.AreEqual(s4, "(((it).B1 * (it).B5.B1) == 5)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();

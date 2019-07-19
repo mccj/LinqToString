@@ -35,19 +35,19 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
         [TestMethod]
         public void GreaterThanEnum()
         {
-            var value = StateEnum.State1;
+            var value = StateEnum.State2;
             Expression<Func<Model1, bool>> expression1 = f => (value > f.State);
             var s1 = expression1.ToExpressionPredicate();
-            Expression<Func<Model1, bool>> expression2 = f => (StateEnum.State1 > f.State);
+            Expression<Func<Model1, bool>> expression2 = f => ( f.State> StateEnum.State2);
             var s2 = expression2.ToExpressionPredicate();
-            Expression<Func<Model1, bool>> expression3 = f => (StateEnum.State1 > f.B5.State);
+            Expression<Func<Model1, bool>> expression3 = f => (StateEnum.State2 > f.B5.State);
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.State > f.B5.State);
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "(0 > it.State)");
-            Assert.AreEqual(s2.Predicate, "(0 > it.State)");
-            Assert.AreEqual(s3.Predicate, "(0 > it.B5.State)");
-            Assert.AreEqual(s4.Predicate, "(it.State > it.B5.State)");
+            Assert.AreEqual(s1.Predicate, "(1 > (it).State)");
+            Assert.AreEqual(s2.Predicate, "(1 <= (it).State)");
+            Assert.AreEqual(s3.Predicate, "(1 > (it).B5.State)");
+            Assert.AreEqual(s4.Predicate, "((it).State > (it).B5.State)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -90,10 +90,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.Age > f.B5.Age);
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "(1 > it.Age)");
-            Assert.AreEqual(s2.Predicate, "(1 > it.Age)");
-            Assert.AreEqual(s3.Predicate, "(1 > it.B5.Age)");
-            Assert.AreEqual(s4.Predicate, "(it.Age > it.B5.Age)");
+            Assert.AreEqual(s1.Predicate, "(1 > (it).Age)");
+            Assert.AreEqual(s2.Predicate, "(1 > (it).Age)");
+            Assert.AreEqual(s3.Predicate, "(1 > (it).B5.Age)");
+            Assert.AreEqual(s4.Predicate, "((it).Age > (it).B5.Age)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -113,10 +113,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.B1 > f.B5.B1);
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "(1.11 > it.B1)");
-            Assert.AreEqual(s2.Predicate, "(1.11 > it.B1)");
-            Assert.AreEqual(s3.Predicate, "(1.11 > it.B5.B1)");
-            Assert.AreEqual(s4.Predicate, "(it.B1 > it.B5.B1)");
+            Assert.AreEqual(s1.Predicate, "(1.11 > (it).B1)");
+            Assert.AreEqual(s2.Predicate, "(1.11 > (it).B1)");
+            Assert.AreEqual(s3.Predicate, "(1.11 > (it).B5.B1)");
+            Assert.AreEqual(s4.Predicate, "((it).B1 > (it).B5.B1)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -138,11 +138,11 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.B2 > f.B5.B2);
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "(DateTime(634609728000000000) > it.B2)");
-            Assert.AreEqual(s2.Predicate, "(DateTime(2012,1,1) > it.B2)");
+            Assert.AreEqual(s1.Predicate, "(DateTime(634609728000000000) > (it).B2)");
+            Assert.AreEqual(s2.Predicate, "(DateTime(2012,1,1) > (it).B2)");
             //Assert.AreEqual(s2_1.Predicate, "(1.11 >= B2)");
-            Assert.AreEqual(s3.Predicate, "(Convert.ToDateTime(\"2012,1,1\") > it.B5.B2)");
-            Assert.AreEqual(s4.Predicate, "(it.B2 > it.B5.B2)");
+            Assert.AreEqual(s3.Predicate, "(Convert.ToDateTime(\"2012,1,1\") > (it).B5.B2)");
+            Assert.AreEqual(s4.Predicate, "((it).B2 > (it).B5.B2)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -164,11 +164,11 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.B2 > f.B5.B2);
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "(DateTimeOffset(634609728000000000,TimeSpan(288000000000)) > it.B3)");
-            Assert.AreEqual(s2.Predicate, "(DateTimeOffset(DateTime(2012,1,1)) > it.B3)");
+            Assert.AreEqual(s1.Predicate, "(DateTimeOffset(634609728000000000,TimeSpan(288000000000)) > (it).B3)");
+            Assert.AreEqual(s2.Predicate, "(DateTimeOffset(DateTime(2012,1,1)) > (it).B3)");
             //Assert.AreEqual(s2_1.Predicate, "(1.11 >= B2)");
-            Assert.AreEqual(s3.Predicate, "(DateTimeOffset(DateTime(2012,1,1)) > it.B5.B3)");
-            Assert.AreEqual(s4.Predicate, "(it.B2 > it.B5.B2)");
+            Assert.AreEqual(s3.Predicate, "(DateTimeOffset(DateTime(2012,1,1)) > (it).B5.B3)");
+            Assert.AreEqual(s4.Predicate, "((it).B2 > (it).B5.B2)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();

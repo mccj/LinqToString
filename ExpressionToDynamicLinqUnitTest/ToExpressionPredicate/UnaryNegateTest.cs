@@ -21,10 +21,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (-f.Age <=- f.B5.Age);
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "((-1) <= (-it.Age))");
-            Assert.AreEqual(s2.Predicate, "(-1 <= (-it.Age))");
-            Assert.AreEqual(s3.Predicate, "(-3 <= (-it.B5.Age))");
-            Assert.AreEqual(s4.Predicate, "((-it.Age) <= (-it.B5.Age))");
+            Assert.AreEqual(s1.Predicate, "((-1) <= (-(it).Age))");
+            Assert.AreEqual(s2.Predicate, "(-1 <= (-(it).Age))");
+            Assert.AreEqual(s3.Predicate, "(-3 <= (-(it).B5.Age))");
+            Assert.AreEqual(s4.Predicate, "((-(it).Age) <= (-(it).B5.Age))");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -44,10 +44,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (-f.B1 <= -f.B5.B1);
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "((-1.11) <= (-it.B1))");
-            Assert.AreEqual(s2.Predicate, "(-1.11 <= (-it.B1))");
-            Assert.AreEqual(s3.Predicate, "(-3.11 <= (-it.B5.B1))");
-            Assert.AreEqual(s4.Predicate, "((-it.B1) <= (-it.B5.B1))");
+            Assert.AreEqual(s1.Predicate, "((-1.11) <= (-(it).B1))");
+            Assert.AreEqual(s2.Predicate, "(-1.11 <= (-(it).B1))");
+            Assert.AreEqual(s3.Predicate, "(-3.11 <= (-(it).B5.B1))");
+            Assert.AreEqual(s4.Predicate, "((-(it).B1) <= (-(it).B5.B1))");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();

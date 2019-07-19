@@ -21,13 +21,13 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionString
             var s3 = expression3.ToExpressionString();
             Expression<Func<Model1, bool>> expression4 = f => (f.Name == f.B5.Name);
             var s4 = expression4.ToExpressionString();
-            Expression<Func<Model1, bool>> expression5 = f => (null== f.B5.Name);
+            Expression<Func<Model1, bool>> expression5 = f => (null == f.B5.Name);
             var s5 = expression5.ToExpressionString();
-            Assert.AreEqual(s1, "(\"a1\" == Name)");
-            Assert.AreEqual(s2, "(\"a1\" == Name)");
-            Assert.AreEqual(s3, "(\"a1\" == B5.Name)");
-            Assert.AreEqual(s4, "(Name == B5.Name)");
-            Assert.AreEqual(s5, "(null == B5.Name)");
+            Assert.AreEqual(s1, "(\"a1\" == (it).Name)");
+            Assert.AreEqual(s2, "(\"a1\" == (it).Name)");
+            Assert.AreEqual(s3, "(\"a1\" == (it).B5.Name)");
+            Assert.AreEqual(s4, "((it).Name == (it).B5.Name)");
+            Assert.AreEqual(s5, "(null == (it).B5.Name)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -38,19 +38,19 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionString
         [TestMethod]
         public void EqualEnum()
         {
-            var value = StateEnum.State1;
+            var value = StateEnum.State2;
             Expression<Func<Model1, bool>> expression1 = f => (value == f.State);
             var s1 = expression1.ToExpressionString();
-            Expression<Func<Model1, bool>> expression2 = f => (StateEnum.State1 == f.State);
+            Expression<Func<Model1, bool>> expression2 = f => (f.State == StateEnum.State2);
             var s2 = expression2.ToExpressionString();
-            Expression<Func<Model1, bool>> expression3 = f => (StateEnum.State1 == f.B5.State);
+            Expression<Func<Model1, bool>> expression3 = f => (StateEnum.State2 == f.B5.State);
             var s3 = expression3.ToExpressionString();
             Expression<Func<Model1, bool>> expression4 = f => (f.State == f.B5.State);
             var s4 = expression4.ToExpressionString();
-            Assert.AreEqual(s1, "(0 == State)");
-            Assert.AreEqual(s2, "(0 == State)");
-            Assert.AreEqual(s3, "(0 == B5.State)");
-            Assert.AreEqual(s4, "(State == B5.State)");
+            Assert.AreEqual(s1, "(\"State2\" == (it).State)");
+            Assert.AreEqual(s2, "((it).State == \"State2\")");
+            Assert.AreEqual(s3, "(\"State2\" == (it).B5.State)");
+            Assert.AreEqual(s4, "((it).State == (it).B5.State)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -70,10 +70,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionString
             var s3 = expression3.ToExpressionString();
             Expression<Func<Model1, bool>> expression4 = f => (f.B4 == f.B5.B4);
             var s4 = expression4.ToExpressionString();
-            Assert.AreEqual(s1, "(True == B4)");
-            Assert.AreEqual(s2, "(True == B4)");
-            Assert.AreEqual(s3, "(True == B5.B4)");
-            Assert.AreEqual(s4, "(B4 == B5.B4)");
+            Assert.AreEqual(s1, "(True == (it).B4)");
+            Assert.AreEqual(s2, "(True == (it).B4)");
+            Assert.AreEqual(s3, "(True == (it).B5.B4)");
+            Assert.AreEqual(s4, "((it).B4 == (it).B5.B4)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -93,10 +93,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionString
             var s3 = expression3.ToExpressionString();
             Expression<Func<Model1, bool>> expression4 = f => (f.Age == f.B5.Age);
             var s4 = expression4.ToExpressionString();
-            Assert.AreEqual(s1, "(1 == Age)");
-            Assert.AreEqual(s2, "(1 == Age)");
-            Assert.AreEqual(s3, "(1 == B5.Age)");
-            Assert.AreEqual(s4, "(Age == B5.Age)");
+            Assert.AreEqual(s1, "(1 == (it).Age)");
+            Assert.AreEqual(s2, "(1 == (it).Age)");
+            Assert.AreEqual(s3, "(1 == (it).B5.Age)");
+            Assert.AreEqual(s4, "((it).Age == (it).B5.Age)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
@@ -116,10 +116,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionString
             var s3 = expression3.ToExpressionString();
             Expression<Func<Model1, bool>> expression4 = f => (f.B1 == f.B5.B1);
             var s4 = expression4.ToExpressionString();
-            Assert.AreEqual(s1, "(1.11 == B1)");
-            Assert.AreEqual(s2, "(1.11 == B1)");
-            Assert.AreEqual(s3, "(1.11 == B5.B1)");
-            Assert.AreEqual(s4, "(B1 == B5.B1)");
+            Assert.AreEqual(s1, "(1.11 == (it).B1)");
+            Assert.AreEqual(s2, "(1.11 == (it).B1)");
+            Assert.AreEqual(s3, "(1.11 == (it).B5.B1)");
+            Assert.AreEqual(s4, "((it).B1 == (it).B5.B1)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();

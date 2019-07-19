@@ -1,17 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <RootNamespace>System.Linq.Dynamic</RootNamespace>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net40</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <Reference Include="Microsoft.CSharp" Condition="'$(TargetFramework)' == 'net40'" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0"  Condition="'$(TargetFramework)' != 'net40'"/>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18"  Condition="'$(TargetFramework)' == 'netstandard2.0'"/>
+    <PackageReference Include="System.Linq.Dynamic" Version="1.0.7" Condition="'$(TargetFramework)' == 'net40' Or '$(TargetFramework)' == 'net45'" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
-    <PackageReference Include="System.Linq.Dynamic" Version="1.0.7" />
-  </ItemGroup>
+
   <ItemGroup>
     <Compile Remove="DynamicLinq\DynamicLinq.cs" />
   </ItemGroup>

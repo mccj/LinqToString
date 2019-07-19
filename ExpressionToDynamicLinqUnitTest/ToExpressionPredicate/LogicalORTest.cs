@@ -67,10 +67,10 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.B4 || f.B5.B4);
             var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "(True || it.B4)");
-            Assert.AreEqual(s2.Predicate, "(True || it.B4)");
-            Assert.AreEqual(s3.Predicate, "(True || it.B5.B4)");
-            Assert.AreEqual(s4.Predicate, "(it.B4 || it.B5.B4)");
+            Assert.AreEqual(s1.Predicate, "(True || (it).B4)");
+            Assert.AreEqual(s2.Predicate, "(True || (it).B4)");
+            Assert.AreEqual(s3.Predicate, "(True || (it).B5.B4)");
+            Assert.AreEqual(s4.Predicate, "((it).B4 || (it).B5.B4)");
 
             var models = new Model1[] { };
             var m1 = models.Where(s1).ToArray();
