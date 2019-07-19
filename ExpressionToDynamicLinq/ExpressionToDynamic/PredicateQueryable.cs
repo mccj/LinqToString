@@ -4,8 +4,8 @@
     [System.Diagnostics.DebuggerDisplay("\\{Predicate:{Predicate}, Parameters:{Parameters}\\}")]
     public class PredicateQueryable
     {
-        public string Predicate { get; set; }
-        public Parameter[] Parameters { get; set; }
+        public string Predicate { get; internal set; }
+        public Parameter[] Parameters { get; internal set; }
     }
     [Serializable]
     [System.Diagnostics.DebuggerDisplay("\\{Index:{Index}, Type:{Type}, Value:{Value}\\}")]

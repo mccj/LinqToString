@@ -22,10 +22,10 @@ namespace System.Linq.Dynamic
         public static IEnumerable<TSource> Where<TSource>(this IQueryable<TSource> source, PredicateQueryable predicate)
         {
             var _params = predicate.Parameters.Select(f => f.Value).ToArray();
-#if !(NET35 || SILVERLIGHT || NETFX_CORE || WINDOWS_APP || DOTNET5_1 || UAP10_0 || NETSTANDARD)
+#if Kahanu_System_Linq_Dynamic && !(NET35 || SILVERLIGHT || NETFX_CORE || WINDOWS_APP || DOTNET5_1 || UAP10_0 || NETSTANDARD)
             return source.Where(predicate.Predicate, _params);
 #endif
-#if NETSTANDARD2_0
+#if !Kahanu_System_Linq_Dynamic || NETSTANDARD2_0
             return System.Linq.Dynamic.Core.DynamicQueryableExtensions.Where(source, predicate.Predicate, _params);
 #endif
         }
@@ -35,11 +35,11 @@ namespace System.Linq.Dynamic
         }
         public static IQueryable Select(this IQueryable source, PredicateQueryable selector)
         {
-            var _params = selector.Parameters.Select(f => f.Value).ToArray();
-#if !(NET35 || SILVERLIGHT || NETFX_CORE || WINDOWS_APP || DOTNET5_1 || UAP10_0 || NETSTANDARD)
-            return source.Select(selector.Predicate, _params);
+#if Kahanu_System_Linq_Dynamic && !(NET35 || SILVERLIGHT || NETFX_CORE || WINDOWS_APP || DOTNET5_1 || UAP10_0 || NETSTANDARD)
+               return source.Select(selector.Predicate, selector.Parameters);
 #endif
-#if NETSTANDARD2_0
+#if !Kahanu_System_Linq_Dynamic || NETSTANDARD2_0
+            var _params = selector.Parameters.Select(f => f.Value).ToArray();
             return System.Linq.Dynamic.Core.DynamicQueryableExtensions.Select(source, selector.Predicate, _params);
 #endif
         }

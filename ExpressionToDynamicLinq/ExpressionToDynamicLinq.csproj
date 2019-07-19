@@ -8,13 +8,17 @@
     <!--<PackageTags>LinqToString</PackageTags>
     <AssemblyName>LinqToString</AssemblyName>-->
   </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='NET45' OR '$(TargetFramework)'=='NET40'">
+    <DefineConstants>Kahanu_System_Linq_Dynamic</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" Condition="'$(TargetFramework)' == 'net40'" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" Condition="'$(TargetFramework)' != 'net40'" />
+
+    <!--<PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" />-->
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
     <PackageReference Include="System.Linq.Dynamic" Version="1.0.7" Condition="'$(TargetFramework)' == 'net40' Or '$(TargetFramework)' == 'net45'" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Remove="DynamicLinq\DynamicLinq.cs" />
   </ItemGroup>
