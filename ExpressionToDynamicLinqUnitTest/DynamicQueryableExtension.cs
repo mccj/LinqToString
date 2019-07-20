@@ -8,7 +8,7 @@ namespace System.Linq
 {
     public static class DynamicQueryableExtension
     {
-#if NETCOREAPP2_0
+#if NETCOREAPP2_0 || !Kahanu_System_Linq_Dynamic
         public static IEnumerable<T> Where<T>(this IEnumerable<T> source, string predicate, string defaultValue = null)
         {
             var s = source.AsQueryable();
