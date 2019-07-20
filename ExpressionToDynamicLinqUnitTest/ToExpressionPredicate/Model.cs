@@ -20,6 +20,7 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
         public Model2[] B6 { get; set; }
         public System.Collections.Generic.Dictionary<string, Model2> B7 { get; set; }
         public string[] B8 { get; set; }
+        public int[] B9 { get; set; }
 
     }
     public class Model2 : ModelBase
