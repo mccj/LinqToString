@@ -78,6 +78,20 @@ namespace System.Linq.Dynamic
         private List<ParameterExpression> _expressionParameter = new List<ParameterExpression>();
         private System.Collections.Concurrent.ConcurrentDictionary<Expression, bool> _expressionParameterCache = new System.Collections.Concurrent.ConcurrentDictionary<Expression, bool>();
 
+#if Kahanu_System_Linq_Dynamic
+        public const string KEYWORD_IT = "it";
+        public const string KEYWORD_PARENT = "outerIt";
+#else
+        public const string KEYWORD_IT = "it";
+        public const string KEYWORD_PARENT = "parent";
+        public const string KEYWORD_ROOT = "root";
+
+        public const string SYMBOL_IT = "$";
+        public const string SYMBOL_PARENT = "^";
+        public const string SYMBOL_ROOT = "~";
+#endif
+
+
         private void Init()
         {
             root = null;
@@ -602,15 +616,15 @@ namespace System.Linq.Dynamic
         protected virtual string GetExpressionParameterValue(ParameterExpression parameter)
         {
 #if Kahanu_System_Linq_Dynamic
-            return parameter == it ? "it" : "outerIt";
+            return parameter == it ? KEYWORD_IT : KEYWORD_PARENT;
 #else
-            if (parameter == it) return "it";
-            if (parameter == outerIt) return "parent";
-            if (parameter == root) return "root";
+            if (parameter == it) return KEYWORD_IT;
+            if (parameter == outerIt) return KEYWORD_PARENT;
+            if (parameter == root) return KEYWORD_ROOT;
 
-            //if (parameter == it) return "$";
-            //if (parameter == outerIt) return "^";
-            //if (parameter == root) return "~";
+            //if (parameter == it) return SYMBOL_IT;
+            //if (parameter == outerIt) return SYMBOL_PARENT;
+            //if (parameter == root) return SYMBOL_ROOT;
 #endif
             throw new Exception("错误的 parameter");
         }

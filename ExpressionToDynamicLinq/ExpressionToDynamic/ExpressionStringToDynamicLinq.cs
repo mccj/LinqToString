@@ -102,7 +102,7 @@ namespace System.Linq.Dynamic
                                     var a1 = GetExpressionValue(call.Arguments[1]);
                                     var s111 = (a0 as Collections.IEnumerable).OfType<object>().Select(f =>
                                     {
-                                        return Text.RegularExpressions.Regex.Replace(a1, "\\(it\\)", evaluator => ConstantToValue(f)).Replace("(outerIt)", "(it)");
+                                        return Text.RegularExpressions.Regex.Replace(a1, KEYWORD_IT, evaluator => ConstantToValue(f)).Replace(KEYWORD_PARENT, KEYWORD_IT);
                                     }
                                     ).ToArray();
                                     return "(" + string.Join(" || ", s111) + ")";
