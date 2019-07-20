@@ -72,11 +72,25 @@ namespace System.Linq.Dynamic
         }
 
         protected List<Parameter> _parameter = new List<Parameter>();
+        protected ParameterExpression root = null;
         protected ParameterExpression it = null;
         protected ParameterExpression outerIt = null;
         private List<ParameterExpression> _expressionParameter = new List<ParameterExpression>();
         private System.Collections.Concurrent.ConcurrentDictionary<Expression, bool> _expressionParameterCache = new System.Collections.Concurrent.ConcurrentDictionary<Expression, bool>();
 
+        private void Init()
+        {
+            root = null;
+            it = null;
+            outerIt = null;
+            _parameter.Clear();
+            _expressionParameter.Clear();
+        }
+        public string GetExpressionString(Expression exp)
+        {
+            Init();
+            return GetExpressionValue(exp);
+        }
         protected bool IsParameterExpression(Expression exp)
         {
             if (exp == null) return false;
@@ -227,6 +241,7 @@ namespace System.Linq.Dynamic
                         }
                         _expressionParameter.AddRange(lambda.Parameters);
                         it = lambda.Parameters.FirstOrDefault();
+                        if (root == null) root = it;
                         var str = GetExpressionValue(lambda.Body);
                         it = null;
                         foreach (var item in lambda.Parameters)
@@ -586,7 +601,18 @@ namespace System.Linq.Dynamic
         }
         protected virtual string GetExpressionParameterValue(ParameterExpression parameter)
         {
-            return parameter == it ? "(it)" : "(outerIt)";
+#if Kahanu_System_Linq_Dynamic
+            return parameter == it ? "it" : "outerIt";
+#else
+            if (parameter == it) return "it";
+            if (parameter == outerIt) return "parent";
+            if (parameter == root) return "root";
+
+            //if (parameter == it) return "$";
+            //if (parameter == outerIt) return "^";
+            //if (parameter == root) return "~";
+#endif
+            throw new Exception("错误的 parameter");
         }
         protected virtual string GetExpressionCallValue(MethodCallExpression call)
         {
@@ -666,7 +692,6 @@ namespace System.Linq.Dynamic
                 return string.Format(format, GetExpressionValue(expression.Left), GetExpressionValue(expression.Right));
             }
         }
-
         protected object LambdaExpressionInvoke(Expression body)
         {
             var expr = Expression.Lambda(body, null);//创建一个Lambda表达式
@@ -700,7 +725,6 @@ namespace System.Linq.Dynamic
             var value = LambdaExpressionInvoke(body);
             return ConstantToValue(value);
         }
-
         protected virtual string ConstantToValue(object value)
         {
             if (value == null)

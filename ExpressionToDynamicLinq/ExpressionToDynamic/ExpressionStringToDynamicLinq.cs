@@ -11,7 +11,7 @@ namespace System.Linq.Dynamic
         }
         public string ToExpressionString()
         {
-            return GetExpressionValue(_expression);
+            return GetExpressionString(_expression);
         }
         //protected override string GetExpressionParameterValue(ParameterExpression parameter)
         //{

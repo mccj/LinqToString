@@ -11,7 +11,7 @@ namespace System.Linq.Dynamic
         }
         public PredicateQueryable ToExpressionPredicate()
         {
-            var predicate = GetExpressionValue(_expression);
+            var predicate = GetExpressionString(_expression);
             return new PredicateQueryable
             {
                 Predicate = predicate,

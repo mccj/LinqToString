@@ -6,14 +6,36 @@ namespace System.Linq.Dynamic
 {
     public static class ExpressionToDynamicLinqQueryable
     {
+        [System.Obsolete("使用 ToStringExpression")]
         public static string ToExpressionString(this Expression expression)
+        {
+            return ToStringExpression(expression);
+        }
+        [System.Obsolete("使用 ToPredicateExpression")]
+        public static PredicateQueryable ToExpressionPredicate(this Expression expression)
+        {
+            return ToPredicateExpression(expression);
+        }
+        public static string ToStringExpression(this Expression expression)
         {
             return new ExpressionStringToDynamicLinq(expression).ToExpressionString();
         }
-        public static PredicateQueryable ToExpressionPredicate(this Expression expression)
+        public static PredicateQueryable ToPredicateExpression(this Expression expression)
         {
             return new ExpressionPredicateToDynamicLinq(expression).ToExpressionPredicate();
         }
+        //public static LambdaExpression ToLambdaExpression(this Expression expression)
+        //{
+        //    //Check.NotNull(source, nameof(source));
+        //    //Check.NotNull(config, nameof(config));
+        //    //Check.NotEmpty(predicate, nameof(predicate));
+        //    //var config = Core.ParsingConfig.Default;
+        //    //bool createParameterCtor =false ;//SupportsLinqToObjects(config, source);
+        //    //LambdaExpression lambda = Core.DynamicExpressionParser.ParseLambda(config, createParameterCtor, source.ElementType, null, predicate, args);
+
+        //    //return new ExpressionPredicateToDynamicLinq(expression).ToExpressionPredicate();
+        //    return null;
+        //}
 
         public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> source, PredicateQueryable predicate)
         {
