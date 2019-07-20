@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
 {
     [TestClass]
-    public class AdditiveSubtractTest
+    public class AdditiveSubtractTest : PredicateTestBase
     {
         //[TestMethod]
         //public void AdditiveSubtractString()
@@ -37,46 +37,50 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
         {
             var value = 1;
             Expression<Func<Model1, bool>> expression1 = f => (value - f.Age == 5);
-            var s1 = expression1.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression2 = f => (1 - f.Age == 5);
-            var s2 = expression2.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression3 = f => (1 - f.B5.Age == 5);
-            var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.Age - f.B5.Age == 5);
-            var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "((1 - (it).Age) == 5)");
-            Assert.AreEqual(s2.Predicate, "((1 - (it).Age) == 5)");
-            Assert.AreEqual(s3.Predicate, "((1 - (it).B5.Age) == 5)");
-            Assert.AreEqual(s4.Predicate, "(((it).Age - (it).B5.Age) == 5)");
 
-            var models = new Model1[] { };
-            var m1 = models.Where(s1).ToArray();
-            var m2 = models.Where(s2).ToArray();
-            var m3 = models.Where(s3).ToArray();
-            var m4 = models.Where(s4).ToArray();
+            var s1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
+            var s2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
+            var s3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
+            var s4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+
+            //Assert.AreEqual(s1.Predicate, "((1 - (it).Age) == 5)");
+            //Assert.AreEqual(s2.Predicate, "((1 - (it).Age) == 5)");
+            //Assert.AreEqual(s3.Predicate, "((1 - (it).B5.Age) == 5)");
+            //Assert.AreEqual(s4.Predicate, "(((it).Age - (it).B5.Age) == 5)");
+
+            //var models = new Model1[] { };
+            //var m1 = models.Where(s1).ToArray();
+            //var m2 = models.Where(s2).ToArray();
+            //var m3 = models.Where(s3).ToArray();
+            //var m4 = models.Where(s4).ToArray();
         }
         [TestMethod]
         public void AdditiveSubtractDecimal()
         {
             var value = 1.11M;
             Expression<Func<Model1, bool>> expression1 = f => (value - f.B1 == 5M);
-            var s1 = expression1.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression2 = f => (1.11M - f.B1 == 5M);
-            var s2 = expression2.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression3 = f => (1.11M - f.B5.B1 == 5M);
-            var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.B1 - f.B5.B1 == 5M);
-            var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "((1.11 - (it).B1) == 5)");
-            Assert.AreEqual(s2.Predicate, "((1.11 - (it).B1) == 5)");
-            Assert.AreEqual(s3.Predicate, "((1.11 - (it).B5.B1) == 5)");
-            Assert.AreEqual(s4.Predicate, "(((it).B1 - (it).B5.B1) == 5)");
 
-            var models = new Model1[] { };
-            var m1 = models.Where(s1).ToArray();
-            var m2 = models.Where(s2).ToArray();
-            var m3 = models.Where(s3).ToArray();
-            var m4 = models.Where(s4).ToArray();
+            var s1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
+            var s2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
+            var s3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
+            var s4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+
+            //Assert.AreEqual(s1.Predicate, "((1.11 - (it).B1) == 5)");
+            //Assert.AreEqual(s2.Predicate, "((1.11 - (it).B1) == 5)");
+            //Assert.AreEqual(s3.Predicate, "((1.11 - (it).B5.B1) == 5)");
+            //Assert.AreEqual(s4.Predicate, "(((it).B1 - (it).B5.B1) == 5)");
+
+            //var models = new Model1[] { };
+            //var m1 = models.Where(s1).ToArray();
+            //var m2 = models.Where(s2).ToArray();
+            //var m3 = models.Where(s3).ToArray();
+            //var m4 = models.Where(s4).ToArray();
         }
 
         [TestMethod]
@@ -86,26 +90,29 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
             var value2 = new TimeSpan(1, 0, 0);
 
             Expression<Func<Model1, bool>> expression1 = f => (value - value2 <= f.B2);
-            var s1 = expression1.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression2 = f => (new System.DateTime(2012, 1, 1) - new TimeSpan(1, 0, 0) <= f.B2);
-            var s2 = expression2.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression2_1 = f => (System.DateTime.Now - new TimeSpan(1, 0, 0) <= f.B2);
-            var s2_1 = expression2_1.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression3 = f => (new System.DateTime(2012, 1, 1) - new TimeSpan(1, 0, 0) <= f.B5.B2);
-            var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => (f.B2 - new TimeSpan(1, 0, 0) <= f.B5.B2);
-            var s4 = expression4.ToExpressionPredicate();
-            Assert.AreEqual(s1.Predicate, "((DateTime(634609728000000000) - TimeSpan(36000000000)) <= (it).B2)");
-            Assert.AreEqual(s2.Predicate, "((DateTime(2012,1,1) - TimeSpan(1,0,0)) <= (it).B2)");
-            //Assert.AreEqual(s2_1.Predicate, "(1.11 >= B2)");
-            Assert.AreEqual(s3.Predicate, "((DateTime(2012,1,1) - TimeSpan(1,0,0)) <= (it).B5.B2)");
-            Assert.AreEqual(s4.Predicate, "(((it).B2 - TimeSpan(1,0,0)) <= (it).B5.B2)");
 
-            var models = new Model1[] { };
-            var m1 = models.Where(s1).ToArray();
-            var m2 = models.Where(s2).ToArray();
-            var m3 = models.Where(s3).ToArray();
-            var m4 = models.Where(s4).ToArray();
+            var s1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
+            var s2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
+            var s2_1 = Test(expression2_1, "((\"a1\" + (it).Name) == \"\")");
+            var s3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
+            var s4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+
+
+            //Assert.AreEqual(s1.Predicate, "((DateTime(634609728000000000) - TimeSpan(36000000000)) <= (it).B2)");
+            //Assert.AreEqual(s2.Predicate, "((DateTime(2012,1,1) - TimeSpan(1,0,0)) <= (it).B2)");
+            ////Assert.AreEqual(s2_1.Predicate, "(1.11 >= B2)");
+            //Assert.AreEqual(s3.Predicate, "((DateTime(2012,1,1) - TimeSpan(1,0,0)) <= (it).B5.B2)");
+            //Assert.AreEqual(s4.Predicate, "(((it).B2 - TimeSpan(1,0,0)) <= (it).B5.B2)");
+
+            //var models = new Model1[] { };
+            //var m1 = models.Where(s1).ToArray();
+            //var m2 = models.Where(s2).ToArray();
+            //var m3 = models.Where(s3).ToArray();
+            //var m4 = models.Where(s4).ToArray();
         }
         //[TestMethod]
         //public void AdditiveSubtractDateTimeOffset()

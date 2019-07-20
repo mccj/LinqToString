@@ -7,36 +7,39 @@ using System.Linq.Expressions;
 namespace ExpressionToDynamicLinqUnitTest.ExpressionPredicate
 {
     [TestClass]
-    public class ConditionalTest
+    public class ConditionalTest : PredicateTestBase
     {
         [TestMethod]
         public void Conditional()
         {
             var value = true;
             Expression<Func<Model1, bool>> expression1 = f => ((value ? value : value) == value);
-            var s1 = expression1.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression2 = f => ((true ? 8 : 3) == 5);
-            var s2 = expression2.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression3 = f => ((true ? f.B5.Name : f.B5.Name) == f.B5.Name);
-            var s3 = expression3.ToExpressionPredicate();
             Expression<Func<Model1, bool>> expression4 = f => ((f.B5.Name == "5555" ? f.B5.Name : f.B5.Name) == f.B5.Name);
-            var s4 = expression4.ToExpressionPredicate();
-            //Assert.AreEqual(s1, "(iif(True,True,True) == True)");
-            //Assert.AreEqual(s2, "False");
-            //Assert.AreEqual(s3, "(B5.Name == B5.Name)");
-            //Assert.AreEqual(s4, "(iif((B5.Name == \"5555\"),B5.Name,B5.Name) == B5.Name)");
 
-            Assert.AreEqual(s1.Predicate, "(True == True)");
-            Assert.AreEqual(s2.Predicate, "False");
-            Assert.AreEqual(s3.Predicate, "((it).B5.Name == (it).B5.Name)");
-            Assert.AreEqual(s4.Predicate, "((((it).B5.Name == \"5555\") ? (it).B5.Name : (it).B5.Name) == (it).B5.Name)");
+            var s1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
+            var s2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
+            var s3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
+            var s4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
 
 
-            var models = new Model1[] { };
-            var m1 = models.Where(s1).ToArray();
-            var m2 = models.Where(s2).ToArray();
-            var m3 = models.Where(s3).ToArray();
-            var m4 = models.Where(s4).ToArray();
+            ////Assert.AreEqual(s1, "(iif(True,True,True) == True)");
+            ////Assert.AreEqual(s2, "False");
+            ////Assert.AreEqual(s3, "(B5.Name == B5.Name)");
+            ////Assert.AreEqual(s4, "(iif((B5.Name == \"5555\"),B5.Name,B5.Name) == B5.Name)");
+
+            //Assert.AreEqual(s1.Predicate, "(True == True)");
+            //Assert.AreEqual(s2.Predicate, "False");
+            //Assert.AreEqual(s3.Predicate, "((it).B5.Name == (it).B5.Name)");
+            //Assert.AreEqual(s4.Predicate, "((((it).B5.Name == \"5555\") ? (it).B5.Name : (it).B5.Name) == (it).B5.Name)");
+
+
+            //var models = new Model1[] { };
+            //var m1 = models.Where(s1).ToArray();
+            //var m2 = models.Where(s2).ToArray();
+            //var m3 = models.Where(s3).ToArray();
+            //var m4 = models.Where(s4).ToArray();
         }
         //[TestMethod]
         //public void NotEqualEnum()
