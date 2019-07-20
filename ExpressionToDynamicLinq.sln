@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionToDynamicLinq", "ExpressionToDynamicLinq\ExpressionToDynamicLinq.csproj", "{E4C8EB9A-2A15-4CD6-9352-E6CB5110159D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionToDynamicLinq", "ExpressionToDynamicLinq\ExpressionToDynamicLinq.csproj", "{E4C8EB9A-2A15-4CD6-9352-E6CB5110159D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionToDynamicLinqUnitTest", "ExpressionToDynamicLinqUnitTest\ExpressionToDynamicLinqUnitTest.csproj", "{636FBDD3-9B9C-438F-9FF2-3F42674AF184}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionToDynamicLinqUnitTest", "ExpressionToDynamicLinqUnitTest\ExpressionToDynamicLinqUnitTest.csproj", "{636FBDD3-9B9C-438F-9FF2-3F42674AF184}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {96B12908-EB65-4A78-9A72-9CDAFE97F23F}
 	EndGlobalSection
 EndGlobal

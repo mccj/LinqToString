@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45</TargetFrameworks>
+    <!--<TargetFrameworks>net45</TargetFrameworks>-->
     <!--<TargetFrameworks>netcoreapp2.0</TargetFrameworks>-->
-    <!--<TargetFrameworks>netcoreapp2.0;net45</TargetFrameworks>-->
+    <TargetFrameworks>netcoreapp2.0;net45</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='NET45'">
-    <DefineConstants>Kahanu_System_Linq_Dynamic</DefineConstants>
+    <!--<DefineConstants>Kahanu_System_Linq_Dynamic</DefineConstants>-->
   </PropertyGroup>
 
   <ItemGroup>
