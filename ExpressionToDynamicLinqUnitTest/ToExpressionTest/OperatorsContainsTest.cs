@@ -20,11 +20,11 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression4 = f => ("a1a2a3".Contains(f.B5.Name));
             Expression<Func<Model1, bool>> expression5 = f => (f.B6.Any(ff => ff.Name == f.B5.Name));
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
-            var ss5 = Test(expression5, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
+            var ss5 = Test(expression5);
 
             //Assert.AreEqual(s1.Predicate, "\"a1a2a3\".Contains((it).Name)");
             //Assert.AreEqual(s2.Predicate, "\"a1a2a3\".Contains((it).Name)");
@@ -48,10 +48,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (new[] { "a1", "a2", "a3" }.Contains(f.B5.Name));
             Expression<Func<Model1, bool>> expression4 = f => (f.B8.Contains(f.B5.Name));
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "@0.Contains((outerIt).Name)");
             //Assert.AreEqual(s2.Predicate, "@0.Contains((outerIt).Name)");
@@ -79,10 +79,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (new[] { StateEnum.State1, StateEnum.State2, StateEnum.State3 }.Contains(f.B5.State));
             Expression<Func<Model1, bool>> expression4 = f => (f.B6.Contains(f.B5));
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "@0.Contains((outerIt).State)");
             //Assert.AreEqual(s2.Predicate, "@0.Contains((outerIt).State)");

@@ -19,11 +19,11 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression4 = f => (f.Name == f.B5.Name);
             Expression<Func<Model1, bool>> expression5 = f => (null== f.B5.Name);
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
-            var ss5 = Test(expression5, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
+            var ss5 = Test(expression5);
 
             //Assert.AreEqual(s1.Predicate, "(\"a1\" == (it).Name)");
             //Assert.AreEqual(s2.Predicate, "(\"a1\" == (it).Name)");
@@ -46,10 +46,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (StateEnum.State2 == f.B5.State);
             Expression<Func<Model1, bool>> expression4 = f => (f.State == f.B5.State);
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "(\"State2\" == (it).State)");
             //Assert.AreEqual(s2.Predicate, "((it).State == \"State2\")");
@@ -71,10 +71,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (true == f.B5.B4);
             Expression<Func<Model1, bool>> expression4 = f => (f.B4 == f.B5.B4);
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "(True == (it).B4)");
             //Assert.AreEqual(s2.Predicate, "(True == (it).B4)");
@@ -96,10 +96,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (1 == f.B5.Age);
             Expression<Func<Model1, bool>> expression4 = f => (f.Age == f.B5.Age);
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
          
 
             //Assert.AreEqual(s1.Predicate, "(1 == (it).Age)");
@@ -122,10 +122,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (1.11M == f.B5.B1);
             Expression<Func<Model1, bool>> expression4 = f => (f.B1 == f.B5.B1);
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "(1.11 == (it).B1)");
             //Assert.AreEqual(s2.Predicate, "(1.11 == (it).B1)");

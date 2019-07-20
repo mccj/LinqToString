@@ -634,6 +634,7 @@ namespace System.Linq.Dynamic
         }
         protected string GetBinaryExpressionEnumValue(BinaryExpression expression, string format, string reversalFormat = null)
         {
+#if Kahanu_System_Linq_Dynamic
             var leftParameterExpression = IsParameterExpression(expression.Left);
             var rightParameterExpression = IsParameterExpression(expression.Right);
             if (leftParameterExpression != rightParameterExpression)
@@ -642,18 +643,26 @@ namespace System.Linq.Dynamic
                 //枚举
                 if (unaryExpression?.Operand?.Type?.IsEnum == true && leftParameterExpression)
                 {//Parameter值在左边，需要反转，并转换参数
-                    var rightExpressionValue = LambdaExpressionInvokeValue(expression.Right);
-                    var enumRightExpressionValue = Enum.Parse(unaryExpression?.Operand?.Type, rightExpressionValue);
-                    var value = ConstantToValue(enumRightExpressionValue);
-                    //var value = GetExpressionValue(expression.Right);
+//#if Kahanu_System_Linq_Dynamic
+                    var value = GetExpressionValue(expression.Right);
+//#else
+//                    var rightExpressionValue = LambdaExpressionInvokeValue(expression.Right);
+//                    var enumRightExpressionValue = Enum.Parse(unaryExpression?.Operand?.Type, rightExpressionValue);
+//                    var value = ConstantToValue(enumRightExpressionValue);
+//                    //var value = GetExpressionValue(expression.Right);
+//#endif
                     return string.Format(reversalFormat ?? format, value, GetExpressionValue(expression.Left));
                 }
                 else if (unaryExpression?.Operand?.Type?.IsEnum == true && rightParameterExpression)
                 {//Parameter值在右边，不需要反转，并转换参数
-                    var leftExpressionValue = LambdaExpressionInvokeValue(expression.Left);
-                    var enumLeftExpressionValue = Enum.Parse(unaryExpression?.Operand?.Type, leftExpressionValue);
-                    var value = ConstantToValue(enumLeftExpressionValue);
-                    //var value = GetExpressionValue(expression.Left);
+//#if Kahanu_System_Linq_Dynamic
+                    var value = LambdaExpressionInvokeValue(expression.Left);
+//#else
+//                    var leftExpressionValue = LambdaExpressionInvokeValue(expression.Left);
+//                    var enumLeftExpressionValue = Enum.Parse(unaryExpression?.Operand?.Type, leftExpressionValue);
+//                    var value = ConstantToValue(enumLeftExpressionValue);
+//                    //var value = GetExpressionValue(expression.Left);
+//#endif
                     return string.Format(format, value, GetExpressionValue(expression.Right));
                 }
             }
@@ -671,6 +680,7 @@ namespace System.Linq.Dynamic
             //        return string.Format(reversalFormat ?? format, GetExpressionValue(expression.Right), GetExpressionValue(expression.Left));
             //    }
             //}
+#endif
             {//其他
                 //return string.Format(format, GetExpressionValue(expression.Left), GetExpressionValue(expression.Right));
                 return GetBinaryExpressionEnumValue(format, expression);

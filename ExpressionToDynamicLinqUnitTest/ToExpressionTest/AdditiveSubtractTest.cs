@@ -41,10 +41,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (1 - f.B5.Age == 5);
             Expression<Func<Model1, bool>> expression4 = f => (f.Age - f.B5.Age == 5);
 
-            var s1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var s2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var s3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var s4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var s1 = Test(expression1);
+            var s2 = Test(expression2);
+            var s3 = Test(expression3);
+            var s4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "((1 - (it).Age) == 5)");
             //Assert.AreEqual(s2.Predicate, "((1 - (it).Age) == 5)");
@@ -66,10 +66,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (1.11M - f.B5.B1 == 5M);
             Expression<Func<Model1, bool>> expression4 = f => (f.B1 - f.B5.B1 == 5M);
 
-            var s1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var s2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var s3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var s4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var s1 = Test(expression1);
+            var s2 = Test(expression2);
+            var s3 = Test(expression3);
+            var s4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "((1.11 - (it).B1) == 5)");
             //Assert.AreEqual(s2.Predicate, "((1.11 - (it).B1) == 5)");
@@ -95,11 +95,11 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (new System.DateTime(2012, 1, 1) - new TimeSpan(1, 0, 0) <= f.B5.B2);
             Expression<Func<Model1, bool>> expression4 = f => (f.B2 - new TimeSpan(1, 0, 0) <= f.B5.B2);
 
-            var s1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var s2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var s2_1 = Test(expression2_1, "((\"a1\" + (it).Name) == \"\")");
-            var s3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var s4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var s1 = Test(expression1);
+            var s2 = Test(expression2);
+            var s2_1 = Test(expression2_1);
+            var s3 = Test(expression3);
+            var s4 = Test(expression4);
 
 
             //Assert.AreEqual(s1.Predicate, "((DateTime(634609728000000000) - TimeSpan(36000000000)) <= (it).B2)");

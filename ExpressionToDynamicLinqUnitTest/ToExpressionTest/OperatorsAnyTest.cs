@@ -34,12 +34,12 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             //Assert.AreEqual(s6, "(it).B6.Any(((outerIt).B5.Name == (it).Name))");
 
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")",model);
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")", model);
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")", model);
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")", model);
-            var ss5 = Test(expression5, "((\"a1\" + (it).Name) == \"\")", model);
-            var ss6 = Test(expression6, "((\"a1\" + (it).Name) == \"\")", model);
+            var ss1 = Test(expression1,model);
+            var ss2 = Test(expression2, model);
+            var ss3 = Test(expression3, model);
+            var ss4 = Test(expression4, model);
+            var ss5 = Test(expression5, model);
+            var ss6 = Test(expression6, model);
 
 
             //Assert.AreEqual(s1.Predicate, "@0.Any(((outerIt).Name == (it)))");
@@ -76,11 +76,11 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression5 = f => (f.B9.Any());
 
             var model = new Model1[] { new Model1 { B5 = new Model2 { }, B9 = new[] { 0 } } };
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")", model);
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")", model);
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")", model);
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")", model);
-            var ss5 = Test(expression5, "((\"a1\" + (it).Name) == \"\")", model);
+            var ss1 = Test(expression1, model);
+            var ss2 = Test(expression2, model);
+            var ss3 = Test(expression3, model);
+            var ss4 = Test(expression4, model);
+            var ss5 = Test(expression5, model);
 
             //Assert.AreEqual(s1.Predicate, "@0.Any((outerIt.Name == it))");
             //Assert.AreEqual(s2.Predicate, "@0.Any((outerIt.Name == it))");
@@ -111,9 +111,9 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (new[] { StateEnum.State1, StateEnum.State2, StateEnum.State3 }.Any((ff => f.B5.State == ff)));
 
             var model = new Model1[] { new Model1 { B5 = new Model2 { }, B8 = new[] { "" } } };
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")", model);
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")", model);
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")", model);
+            var ss1 = Test(expression1, model);
+            var ss2 = Test(expression2, model);
+            var ss3 = Test(expression3, model);
 
 
             //Assert.AreEqual(s1.Predicate, "@0.Any(((outerIt).State == (it)))");

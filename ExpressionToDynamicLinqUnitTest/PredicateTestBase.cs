@@ -16,7 +16,7 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
     }
     public class PredicateTestBase<TModel>
     {
-        public (PredicateQueryable TestPredicate, string TestString) Test(Expression expression, string predicate, TModel[] models = null)
+        public (PredicateQueryable TestPredicate, string TestString) Test(Expression expression,  TModel[] models = null)
         {
             var t1 = TestToPredicate(expression, models);
             var t2 = TestToString(expression, models);

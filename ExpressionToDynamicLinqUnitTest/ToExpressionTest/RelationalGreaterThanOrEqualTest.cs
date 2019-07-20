@@ -41,10 +41,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (StateEnum.State2 >= f.B5.State);
             Expression<Func<Model1, bool>> expression4 = f => (f.State >= f.B5.State);
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "(1 >= (it).State)");
             //Assert.AreEqual(s2.Predicate, "(1 < (it).State)");
@@ -90,10 +90,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression4 = f => (f.Age >= f.B5.Age);
 
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "(1 >= (it).Age)");
             //Assert.AreEqual(s2.Predicate, "(1 >= (it).Age)");
@@ -115,10 +115,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (1.11M >= f.B5.B1);
             Expression<Func<Model1, bool>> expression4 = f => (f.B1 >= f.B5.B1);
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
      
 
             //Assert.AreEqual(s1.Predicate, "(1.11 >= (it).B1)");
@@ -143,11 +143,11 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression4 = f => (f.B2 >= f.B5.B2);
 
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss2_1 = Test(expression2_1, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss2_1 = Test(expression2_1);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "(DateTime(634609728000000000) >= (it).B2)");
             //Assert.AreEqual(s2.Predicate, "(DateTime(2012,1,1) >= (it).B2)");
@@ -171,11 +171,11 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (new System.DateTimeOffset(new System.DateTime(2012, 1, 1)) >= f.B5.B3);
             Expression<Func<Model1, bool>> expression4 = f => (f.B2 >= f.B5.B2);
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss2_1 = Test(expression2_1, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss2_1 = Test(expression2_1);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
 
             //Assert.AreEqual(s1.Predicate, "(DateTimeOffset(634609728000000000,TimeSpan(288000000000)) >= (it).B3)");
@@ -207,16 +207,16 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression9 = f => (f.B2 <= f.B5.B3);
             Expression<Func<Model1, bool>> expression10 = f => (f.B3 <= f.B5.B2);
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
-            var ss5 = Test(expression5, "((\"a1\" + (it).Name) == \"\")");
-            var ss6 = Test(expression6, "((\"a1\" + (it).Name) == \"\")");
-            var ss7 = Test(expression7, "((\"a1\" + (it).Name) == \"\")");
-            var ss8 = Test(expression8, "((\"a1\" + (it).Name) == \"\")");
-            //var ss9 = Test(expression9, "((\"a1\" + (it).Name) == \"\")");
-            //var ss10 = Test(expression10, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
+            var ss5 = Test(expression5);
+            var ss6 = Test(expression6);
+            var ss7 = Test(expression7);
+            var ss8 = Test(expression8);
+            //var ss9 = Test(expression9);
+            //var ss10 = Test(expression10);
 
 
             //Assert.AreEqual(s1, "(DateTime(634609728000000000) <= B2)");

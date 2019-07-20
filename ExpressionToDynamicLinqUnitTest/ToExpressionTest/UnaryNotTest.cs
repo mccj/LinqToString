@@ -18,10 +18,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (!(!true != f.B5.B4));
             Expression<Func<Model1, bool>> expression4 = f => (!(!f.B4 != f.B5.B4));
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "(!((!True) != (it).B4))");
             //Assert.AreEqual(s2.Predicate, "(!(False != (it).B4))");

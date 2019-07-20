@@ -19,8 +19,8 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression1 = f => ((value + f.Name == "") && value == "ssss" && f.Name == "ssss");
             Expression<Func<Model1, bool>> expression2 = f => (valueTrue && (((valueFalse || valueFalse))));
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
 
             //Assert.AreEqual(s1.Predicate, "((((\"a1\" + (it).Name) == \"\") && (\"a1\" == \"ssss\")) && ((it).Name == \"ssss\"))");
             //Assert.AreEqual(s2.Predicate, "(True && (False || False))");

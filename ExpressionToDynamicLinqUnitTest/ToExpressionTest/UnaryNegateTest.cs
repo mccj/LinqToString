@@ -18,10 +18,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (-(1+2) <= -f.B5.Age);
             Expression<Func<Model1, bool>> expression4 = f => (-f.Age <=- f.B5.Age);
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "((-1) <= (-(it).Age))");
             //Assert.AreEqual(s2.Predicate, "(-1 <= (-(it).Age))");
@@ -43,10 +43,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression3 = f => (-(1.11M+2) <= -f.B5.B1);
             Expression<Func<Model1, bool>> expression4 = f => (-f.B1 <= -f.B5.B1);
 
-            var ss1 = Test(expression1, "((\"a1\" + (it).Name) == \"\")");
-            var ss2 = Test(expression2, "((\"a1\" + (it).Name) == \"\")");
-            var ss3 = Test(expression3, "((\"a1\" + (it).Name) == \"\")");
-            var ss4 = Test(expression4, "((\"a1\" + (it).Name) == \"\")");
+            var ss1 = Test(expression1);
+            var ss2 = Test(expression2);
+            var ss3 = Test(expression3);
+            var ss4 = Test(expression4);
 
             //Assert.AreEqual(s1.Predicate, "((-1.11) <= (-(it).B1))");
             //Assert.AreEqual(s2.Predicate, "(-1.11 <= (-(it).B1))");
