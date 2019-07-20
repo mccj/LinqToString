@@ -13,10 +13,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
         public void AdditiveAddString()
         {
             var value = "a1";
-            Expression<Func<Model1, bool>> expression1 = f => (value + f.Name == "");
-            Expression<Func<Model1, bool>> expression2 = f => ("a1" + f.Name == "");
-            Expression<Func<Model1, bool>> expression3 = f => ("a1" + f.B5.Name == "");
-            Expression<Func<Model1, bool>> expression4 = f => (f.Name + f.B5.Name == "");
+            Expression<Func<Model1, bool>> expression1 = f => (value + f.Name == "a1mccj");
+            Expression<Func<Model1, bool>> expression2 = f => ("a1" + f.Name == "a1mccj");
+            Expression<Func<Model1, bool>> expression3 = f => ("a1" + f.B5.Name == "a1mccj");
+            Expression<Func<Model1, bool>> expression4 = f => (f.Name + f.B5.Name == "mccjmccj");
 
             var s1 = Test(expression1);
             var s2 = Test(expression2);
@@ -38,10 +38,10 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
         public void AdditiveAddInt()
         {
             var value = 1;
-            Expression<Func<Model1, bool>> expression1 = f => (value + f.Age == 5);
-            Expression<Func<Model1, bool>> expression2 = f => (1 + f.Age == 5);
-            Expression<Func<Model1, bool>> expression3 = f => (1 + f.B5.Age == 5);
-            Expression<Func<Model1, bool>> expression4 = f => (f.Age + f.B5.Age == 5);
+            Expression<Func<Model1, bool>> expression1 = f => (value + f.Age == 7);
+            Expression<Func<Model1, bool>> expression2 = f => (1 + f.Age == 7);
+            Expression<Func<Model1, bool>> expression3 = f => (1 + f.B5.Age == 7);
+            Expression<Func<Model1, bool>> expression4 = f => (f.Age + f.B5.Age == 12);
 
             var s1 = Test(expression1);
             var s2 = Test(expression2);
@@ -62,12 +62,12 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
         [TestMethod]
         public void AdditiveAddDecimal()
         {
-            var value = 1.11M;
-            Expression<Func<Model1, bool>> expression1 = f => (value + f.B1 == 5M);
-            Expression<Func<Model1, bool>> expression2 = f => (1.11M + f.B1 == 5M);
-            Expression<Func<Model1, bool>> expression3 = f => (1.11M + f.B5.B1 == 5);
-            Expression<Func<Model1, bool>> expression4 = f => (f.B1 + f.B5.B1 == 5);
-            Expression<Func<Model1, bool>> expression5 = f => (f.Age + f.B5.B1 == 5);
+            var value = 1.1M;
+            Expression<Func<Model1, bool>> expression1 = f => (value + f.B1 == 3.3M);
+            Expression<Func<Model1, bool>> expression2 = f => (1.1M + f.B1 == 3.3M);
+            Expression<Func<Model1, bool>> expression3 = f => (0.8M + f.B5.B1 == 3);
+            Expression<Func<Model1, bool>> expression4 = f => (f.B1 + f.B5.B1 == 4.4M);
+            Expression<Func<Model1, bool>> expression5 = f => (f.Age + f.B5.B1 == 8.2M);
 
             var s1 = Test(expression1);
             var s2 = Test(expression2);

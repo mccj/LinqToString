@@ -2,11 +2,11 @@
   <PropertyGroup>
     <RootNamespace>System.Linq.Dynamic</RootNamespace>
     <TargetFrameworks>netstandard2.0;net45;net40</TargetFrameworks>
-    <Version>1.0.2</Version>
+    <Version>1.1.0</Version>
     <RepositoryUrl>https://github.com/mccj/ExpressionToDynamicLinq.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/mccj/ExpressionToDynamicLinq</PackageProjectUrl>
-    <!--<PackageTags>LinqToString</PackageTags>
-    <AssemblyName>LinqToString</AssemblyName>-->
+    <PackageTags>LinqToString</PackageTags>
+    <AssemblyName>LinqToString</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='NET45' OR '$(TargetFramework)'=='NET40'">
     <!--<DefineConstants>Kahanu_System_Linq_Dynamic</DefineConstants>-->
