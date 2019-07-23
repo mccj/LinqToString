@@ -20,7 +20,8 @@ namespace ExpressionToDynamicLinqUnitTest.ToExpressionTest
             Expression<Func<Model1, bool>> expression4 = f => (f.B6[0].Age == 1 + f.Age);
             Expression<Func<Model1, bool>> expression5 = f => (f.B6[0].B4);
             Expression<Func<Model1, bool>> expression6 = f => (f.B7["ssss"].B4);
-            Expression<Func<Model1, bool>> expression7 = f => (f.B6[f.Age].B4);
+            //Expression<Func<Model1, bool>> expression7 = f => (f.B6[f.Age].B4);
+            Expression<Func<Model1, bool>> expression7 = f => (f.B6.FirstOrDefault().B4);
             Expression<Func<Model1, bool>> expression8 = f => (f.B7[f.Name].B4);
 
             var ss1 = Test(expression1);
