@@ -17,9 +17,8 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <ProjectReference Include="..\ExpressionToDynamicLinq\ExpressionToDynamicLinq.csproj" />
+    <ProjectReference Include="..\LinqToString\LinqToString.csproj" />
   </ItemGroup>
 </Project>
 

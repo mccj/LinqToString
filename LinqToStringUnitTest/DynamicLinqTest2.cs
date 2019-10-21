@@ -8,7 +8,7 @@ using ExpressionToDynamicLinqUnitTest.ToExpressionTest;
 namespace ExpressionToDynamicLinqUnitTest.ExpressionString
 {
     [TestClass]
-    public class DynamicLinqTest: PredicateTestBase
+    public class DynamicLinqTest : PredicateTestBase
     {
         //[TestMethod]
         //public void Dynamic静态方法Test01()
@@ -25,7 +25,7 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionString
             var dddd = new Model1[] { new Model1 { B2 = System.DateTime.Now } };
             var a1 = dddd.Where(f => f.B2 > Convert.ToDateTime("2012-01-01")).ToArray();
             var a2 = dddd.Where("(it).B2>Convert.ToDateTime(\"2012 - 01 - 01\")").ToArray();
-            Expression<Func<Model1, bool>> expression1 = f => (f.B2 > Convert.ToDateTime("2012-01-01"));
+            Expression<Func<Model1, bool>> expression1 = f => f.B2 > Convert.ToDateTime("2012-01-01");
             var s1 = expression1.ToStringExpression();
             var s2 = dddd.Select(s1);
             //Assert.AreEqual(s1, "((it).B2 > Convert.ToDateTime(\"2012-01-01\"))");
@@ -36,7 +36,7 @@ namespace ExpressionToDynamicLinqUnitTest.ExpressionString
             var dddd = new Model1[] { new Model1 { B2 = System.DateTime.Now, Name = "eeee" } };
             var a1 = dddd.SelectMany(f => new string[] { "1111" }).ToArray();
             var a2 = dddd.Select("new(6 as Age,(it).Name as tttt,8 as eeeee)");
-            Expression<Func<Model1, object>> expression1 = f => (new { sss = "hhhhhh", Name = f.Name });
+            Expression<Func<Model1, object>> expression1 = f => new { sss = "hhhhhh", Name = f.Name };
             var s1 = expression1.ToStringExpression();
             var s2 = dddd.Select(s1);
             //Assert.AreEqual(s1, "new(\"hhhhhh\" as sss,(it).Name as Name)");

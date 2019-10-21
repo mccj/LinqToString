@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionToDynamicLinq", "ExpressionToDynamicLinq\ExpressionToDynamicLinq.csproj", "{E4C8EB9A-2A15-4CD6-9352-E6CB5110159D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinqToString", "LinqToString\LinqToString.csproj", "{E4C8EB9A-2A15-4CD6-9352-E6CB5110159D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionToDynamicLinqUnitTest", "ExpressionToDynamicLinqUnitTest\ExpressionToDynamicLinqUnitTest.csproj", "{636FBDD3-9B9C-438F-9FF2-3F42674AF184}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinqToStringUnitTest", "LinqToStringUnitTest\LinqToStringUnitTest.csproj", "{636FBDD3-9B9C-438F-9FF2-3F42674AF184}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B44649F4-F799-48AD-A709-3D062E581E8C}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
