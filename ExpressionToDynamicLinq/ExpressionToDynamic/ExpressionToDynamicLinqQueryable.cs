@@ -6,16 +6,16 @@ namespace System.Linq.Dynamic
 {
     public static class ExpressionToDynamicLinqQueryable
     {
-        [System.Obsolete("使用 ToStringExpression")]
-        public static string ToExpressionString(this Expression expression)
-        {
-            return ToStringExpression(expression);
-        }
-        [System.Obsolete("使用 ToPredicateExpression")]
-        public static PredicateQueryable ToExpressionPredicate(this Expression expression)
-        {
-            return ToPredicateExpression(expression);
-        }
+        //[System.Obsolete("使用 ToStringExpression")]
+        //public static string ToExpressionString(this Expression expression)
+        //{
+        //    return ToStringExpression(expression);
+        //}
+        //[System.Obsolete("使用 ToPredicateExpression")]
+        //public static PredicateQueryable ToExpressionPredicate(this Expression expression)
+        //{
+        //    return ToPredicateExpression(expression);
+        //}
         public static string ToStringExpression(this Expression expression)
         {
             return new ExpressionStringToDynamicLinq(expression).ToExpressionString();
@@ -37,11 +37,12 @@ namespace System.Linq.Dynamic
         //    return null;
         //}
 
+        #region Where
         public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> source, PredicateQueryable predicate)
         {
             return Where(source.AsQueryable(), predicate);
         }
-        public static IEnumerable<TSource> Where<TSource>(this IQueryable<TSource> source, PredicateQueryable predicate)
+        public static IQueryable<TSource> Where<TSource>(this IQueryable<TSource> source, PredicateQueryable predicate)
         {
             var _params = predicate.Parameters.Select(f => f.Value).ToArray();
 #if Kahanu_System_Linq_Dynamic && !(NET35 || SILVERLIGHT || NETFX_CORE || WINDOWS_APP || DOTNET5_1 || UAP10_0 || NETSTANDARD)
@@ -51,6 +52,8 @@ namespace System.Linq.Dynamic
             return System.Linq.Dynamic.Core.DynamicQueryableExtensions.Where(source, predicate.Predicate, _params);
 #endif
         }
+        #endregion Where
+        #region Select
         public static IEnumerable Select(this IEnumerable source, PredicateQueryable selector)
         {
             return Select(source.AsQueryable(), selector);
@@ -65,5 +68,6 @@ namespace System.Linq.Dynamic
             return System.Linq.Dynamic.Core.DynamicQueryableExtensions.Select(source, selector.Predicate, _params);
 #endif
         }
+        #endregion Select
     }
 }
