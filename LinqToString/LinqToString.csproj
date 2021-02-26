@@ -3,8 +3,8 @@
     <RootNamespace>System.Linq.Dynamic</RootNamespace>
     <TargetFrameworks>netstandard2.0;net45;net40</TargetFrameworks>
     <Version>1.1.0</Version>
-    <RepositoryUrl>https://github.com/mccj/ExpressionToDynamicLinq.git</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/mccj/ExpressionToDynamicLinq</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mccj/LinqToString.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/mccj/LinqToString</PackageProjectUrl>
     <PackageTags>LinqToString</PackageTags>
     <AssemblyName>LinqToString</AssemblyName>
   </PropertyGroup>
@@ -15,7 +15,7 @@
     <Reference Include="Microsoft.CSharp" Condition="'$(TargetFramework)' == 'net40'" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" Condition="'$(TargetFramework)' != 'net40'" />
 
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.8" />
     <!--<PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
     <PackageReference Include="System.Linq.Dynamic" Version="1.0.7" Condition="'$(TargetFramework)' == 'net40' Or '$(TargetFramework)' == 'net45'" />-->
   </ItemGroup>
